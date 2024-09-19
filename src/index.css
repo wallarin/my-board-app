@@ -1,6 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'GmarketSansTTFBold';
+  src: url('assert/font/GmarketSansTTFBold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GmarketSansLight';
+  src: url('assert/font/GmarketSansTTFLight.ttf') format('truetype');
+  font-weight: 300;
+  /* light는 일반적으로 300의 폰트 가중치에 해당합니다. */
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GmarketSansMedium';
+  src: url('assert/font/GmarketSansTTFMedium.ttf') format('truetype');
+  font-weight: 500;
+  /* medium은 일반적으로 500의 폰트 가중치에 해당합니다. */
+  font-style: normal;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'GmarketSansMedium', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
