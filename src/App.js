@@ -1,8 +1,6 @@
 import Header from "./components/Header/Header";
 import SidebarMenu from "./components/Sidebar/SidebarMenu";
 import React, { useState } from 'react';
-import Test from "./components/Test";
-import { MdMenu, MdSearch, MdAccountCircle } from 'react-icons/md';
 
 function App() {
 
@@ -31,7 +29,7 @@ function App() {
                 <SidebarMenu isOpen={isOpen} isSearchOpen={isSearchOpen} />
                 {isOpen && <div className="fixed" onClick={toggleMenu} />}
             </div>
-            <div className="flex-grow p-4 bg-gray-100 overflow-auto">
+            <div className="flex-grow p-4 bg-gray-100 overflow-auto lg:w-1/2 2xl:w-3/4 mx-auto">
                 <div className="max-w-full lg:max-w-4xl mx-auto p-4 bg-gray-100 min-h-full">
                     <h1 className="text-2xl lg:text-4xl font-bold mb-4">게시판</h1>
 
