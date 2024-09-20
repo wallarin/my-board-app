@@ -1,6 +1,7 @@
 import { MdMenu, MdSearch, MdAccountCircle, MdClose } from 'react-icons/md';
 import { GoChevronRight } from "react-icons/go";
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Header = ({ toggleMenu, isOpen, setIsOpen, onSearchToggle, isSearchOpen, setIsSearchOpen }) => {
 
@@ -21,7 +22,9 @@ const Header = ({ toggleMenu, isOpen, setIsOpen, onSearchToggle, isSearchOpen, s
                     )}
                 </button>
 
-                <h1 className={`text-xl font-bold lg:absolute lg:left-1/2 lg:transform lg:-translate-x-1/2 ${isSearchOpen ? 'lg:top-1/4' : 'lg:top-2/4'} lg:-translate-y-1/2`}>Talk Together</h1>
+                <Link to="/" className={`text-xl font-bold lg:absolute lg:left-1/2 lg:transform lg:-translate-x-1/2 ${isSearchOpen ? 'lg:top-1/4' : 'lg:top-2/4'} lg:-translate-y-1/2`}>
+                    Talk Together
+                </Link>
 
                 <div className="flex space-x-4 lg:hidden">
                     <button onClick={toggleSearch}>

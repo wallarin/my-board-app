@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { MdExpandMore, MdExpandLess } from 'react-icons/md';
-import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
+import { MdExpandMore, MdExpandLess, MdArrowDropDown, MdArrowDropUp, MdHome, MdLogin } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 
 const SidebarMenu = ({ isOpen, onClose, isSearchOpen }) => {
     const [isCustomerCenterOpen, setIsCustomerCenterOpen] = useState(false);
@@ -36,13 +36,13 @@ const SidebarMenu = ({ isOpen, onClose, isSearchOpen }) => {
             <nav className="flex flex-col h-full">
                 {showScrollUp && (
                     <div className="flex justify-center items-center p-2 bg-gray-400">
-                        <FaArrowUp className="w-6 h-6" />
+                        <MdArrowDropUp className="w-6 h-6" />
                     </div>
                 )}
 
                 <div ref={contentRef} onScroll={handleScroll} className="flex-1 overflow-y-auto p-4 space-y-4">
-                    <a href="#" className="text-xl border-b border-gray-400 pb-2 break-words block">HOME</a>
-                    <a href="#" className="text-xl border-b border-gray-400 pb-2 break-words block">LOGIN</a>
+                    <Link to="/" className="flex justify-between text-xl border-b border-gray-400 pb-2 break-words block">HOME <MdHome className='w-6 h-6'/></Link>
+                    <Link to="/login" className="flex justify-between text-xl border-b border-gray-400 pb-2 break-words block">LOGIN <MdLogin className='w-6 h-6'/></Link>
                     <div className="border-b border-gray-400">
                         <button
                             onClick={toggleCustomerCenter}
@@ -63,12 +63,12 @@ const SidebarMenu = ({ isOpen, onClose, isSearchOpen }) => {
 
                 {showScrollDown && (
                     <div className="flex justify-center items-center p-2 bg-gray-400">
-                        <FaArrowDown className="w-6 h-6" />
+                        <MdArrowDropDown className="w-6 h-6" />
                     </div>
                 )}
 
                 <footer className="p-4 bg-gray-300 text-center">
-                    <p>© 2024. 저작권 Co. All rights reserved</p>
+                    <p>© 2024. 저작권 Co. <br/>All rights reserved</p>
                 </footer>
             </nav>
         </div>
