@@ -54,8 +54,8 @@ const SidebarMenu = ({ isOpen, onClose, isSearchOpen }) => {
                         </button>
                         {isCustomerCenterOpen && (
                             <ul className="pl-4">
-                                <li className="my-2"><a href="#" className="break-words block">FAQ</a></li>
-                                <li className="my-2"><a href="#" className="break-words block">1:1 문의</a></li>
+                                <li className="my-2"><Link to="/" href="#" className="break-words block">FAQ</Link></li>
+                                <li className="my-2"><Link to="/" className="break-words block">1:1 문의</Link></li>
                             </ul>
                         )}
                     </div>

@@ -1,6 +1,5 @@
 import { MdMenu, MdSearch, MdAccountCircle, MdClose } from 'react-icons/md';
 import { GoChevronRight } from "react-icons/go";
-import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Header = ({ toggleMenu, isOpen, setIsOpen, onSearchToggle, isSearchOpen, setIsSearchOpen }) => {
