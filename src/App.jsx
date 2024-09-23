@@ -1,5 +1,6 @@
 import Header from "./components/Header/Header";
 import PostList from "./components/Post/PostList";
+import PostDetail from "./components/Post/PostDetail";
 import MobilePostList from "./components/Post/MobilePostList";
 import SidebarMenu from "./components/Sidebar/SidebarMenu";
 import React, { useState } from 'react';
@@ -7,21 +8,15 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
 
-    const posts = [
-        { id: 1, title: "첫 번째 게시글", content: "이것은 첫 번째 게시글입니다." },
-        { id: 2, title: "두 번째 게시글", content: "이것은 두 번째 게시글입니다." },
-        { id: 3, title: "세 번째 게시글", content: "이것은 세 번째 게시글입니다." },
-        { id: 4, title: "네 번째 게시글", content: "이것은 네 번째 게시글입니다." },
-        { id: 5, title: "다섯 번째 게시글", content: "이것은 다섯 번째 게시글입니다." },
-        { id: 6, title: "여섯 번째 게시글", content: "이것은 여섯 번째 게시글입니다." },
-        { id: 7, title: "일곱 번째 게시글", content: "이것은 일곱 번째 게시글입니다." },
-        { id: 8, title: "여덟 번째 게시글", content: "이것은 여덟 번째 게시글입니다." },
-        { id: 9, title: "아홉 번째 게시글", content: "이것은 아홉 번째 게시글입니다." },
-        { id: 10, title: "열 번째 게시글", content: "이것은 열 번째 게시글입니다." },
-        { id: 11, title: "열 번째 게시글", content: "이것은 열 번째 게시글입니다." },
-        { id: 12, title: "열 번째 게시글", content: "이것은 열 번째 게시글입니다." },
-        // 게시글 추가 가능
-    ];
+    const posts = Array.from({ length: 300 }, (_, index) => ({
+        id: index + 1,
+        title: `${index + 1} 번째 게시글 말줄임표가 정상적으로 실행되는 상태인지 확인해보기 위해 작성된 텍스트입니다.`,
+        content: `이것은 ${index + 1} 번째 게시글입니다.`,
+        nickName: '주작',
+        writeDate: '2024-09-22',
+        writeTime: '12:09',
+        likeCount : 22000,
+    }));
 
     const [isOpen, setIsOpen] = useState(false);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -46,7 +41,7 @@ function App() {
                 </div>
                 <div className="flex-grow p-4 bg-gray-100 overflow-auto lg:w-1/2 2xl:w-3/4 mx-auto">
                     <Routes>
-                        <Route path="/"
+                        <Route path="/my-board-app"
                             element={
                                 <>
                                     {/* 데스크톱과 모바일 렌더링 구분 */}
@@ -58,6 +53,9 @@ function App() {
                                     </div>
                                 </>
                             } />
+
+                        {/* 상세보기 페이지 */}
+                        <Route path="/my-board-app/post/:id" element={<PostDetail posts={posts} />} />
                     </Routes>
                 </div>
             </div>
