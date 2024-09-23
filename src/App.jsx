@@ -13,7 +13,7 @@ function App() {
         title: `${index + 1} 번째 게시글 말줄임표가 정상적으로 실행되는 상태인지 확인해보기 위해 작성된 텍스트입니다.`,
         content: `이것은 ${index + 1} 번째 게시글입니다.`,
         nickName: '주작',
-        writeDate: '2024-09-22',
+        writeDate: '2024-09-23',
         writeTime: '12:09',
         likeCount : 22000,
     }));

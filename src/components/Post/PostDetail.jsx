@@ -51,7 +51,7 @@ function PostDetail({ posts }) {
     return (
         <div className="max-w-full lg:max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg h-[calc(100vh-8rem)] overflow-y-auto">
             <div className="flex justify-between items-center mb-6">
-                <h1 className="text-lg lg:text-lg font-bold text-gray-800">{post.title}</h1>
+                <h1 className="text-lg lg:text-lg font-medium text-gray-800">{post.title}</h1>
                 <button
                     onClick={() => navigate(-1)}
                     className="text-sm text-blue-500 hover:underline"

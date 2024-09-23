@@ -46,7 +46,7 @@ function PostList({ posts }) {
             {/* 게시글 목록 */}
             <div className="space-y-2">
                 {currentPosts.map(post => (
-                    <Link to={`/my-board-app/post/${post.id}`} key={post.id} className="flex justify-between bg-white p-4 rounded-lg shadow cursor-pointer hover:text-orange-100">
+                    <Link to={`/my-board-app/post/${post.id}`} key={post.id} className="flex justify-between bg-white p-4 rounded-lg shadow cursor-pointer hover:text-orange-100 visited:text-gray-500">
                         <span className="w-1/2 truncate">{post.title}</span>
                         <span className="w-1/6 text-center">{post.nickName}</span>
                         <span className="w-1/6 text-center">

@@ -1,5 +1,6 @@
-import { useState, useRef } from 'react';
-import { MdKeyboardArrowUp, MdKeyboardArrowDown } from 'react-icons/md';
+import React, { useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import { MdKeyboardArrowUp, MdKeyboardArrowDown, MdThumbUp } from 'react-icons/md';
 
 const MobilePostList = ({ posts }) => {
     const [visiblePosts, setVisiblePosts] = useState(5);
@@ -21,16 +22,44 @@ const MobilePostList = ({ posts }) => {
         }
     };
 
+    // 오늘 날짜를 가져옵니다.
+    const today = new Date().toISOString().split('T')[0];
+
+    // 추천수 포맷팅 함수
+    const formatRecommendationCount = (count) => {
+        if (count >= 10000) {
+            return `${(count / 10000).toFixed(1)}만 +`;
+        }
+        return count.toLocaleString(); // 10,000 미만은 천 단위로 쉼표 추가
+    };
+
     return (
         <div className="relative max-w-full lg:max-w-4xl mx-auto p-4 bg-gray-100 h-[calc(100vh-6rem)] overflow-hidden">
             <h1 className="text-2xl lg:text-3xl font-medium mb-4">게시판</h1>
 
             <div ref={contentRef} className="space-y-4 lg:space-y-6 h-[calc(100%-3rem)] overflow-y-auto pr-4">
                 {posts.slice(0, visiblePosts).map(post => (
-                    <div key={post.id} className="bg-white p-4 lg:p-6 rounded-lg shadow">
-                        <h2 className="text-xl font-semibold">{post.title}</h2>
-                        <p className="text-gray-700 mt-2 lg:text-lg font-light">{post.content}</p>
-                    </div>
+                    <Link
+                        to={`/my-board-app/post/${post.id}`}
+                        key={post.id}
+                        className="block bg-white p-4 rounded-lg shadow cursor-pointer hover:text-orange-100 visited:text-gray-500"
+                    >
+                        <div className="flex justify-between">
+                            <div className="flex flex-col w-full">
+                                <h2 className="text-lg font-semibold line-clamp-2 overflow-hidden text-ellipsis">
+                                    {post.title}
+                                </h2>
+                                <div className="flex justify-between text-sm text-gray-600 mt-1">
+                                    <span>{post.nickName}</span>
+                                    <span>{post.writeDate === today ? `${post.writeTime}` : post.writeDate}</span>
+                                    <span className="flex items-center text-blue-500">
+                                        <MdThumbUp className="w-4 h-4 mr-1" />
+                                        {formatRecommendationCount(post.likeCount)}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </Link>
                 ))}
                 {visiblePosts < posts.length && (
                     <button
@@ -41,7 +70,6 @@ const MobilePostList = ({ posts }) => {
                     </button>
                 )}
             </div>
-
 
             {/* TOP/BOTTOM 버튼 */}
             <div className="fixed bottom-4 right-4 flex flex-col space-y-2">
