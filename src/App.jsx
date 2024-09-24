@@ -5,6 +5,7 @@ import MobilePostList from "./components/Post/MobilePostList";
 import SidebarMenu from "./components/Sidebar/SidebarMenu";
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import LoginPage from './components/Utils/Login';
 
 function App() {
 
@@ -21,6 +22,10 @@ function App() {
     const [isOpen, setIsOpen] = useState(false);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
 
+    const onClose = () => {
+        setIsOpen(false);
+    }
+
     const toggleMenu = () => {
         setIsOpen(!isOpen);
         setIsSearchOpen(false)
@@ -36,7 +41,7 @@ function App() {
 
                 <div className='relative'>
                     <Header toggleMenu={toggleMenu} isOpen={isOpen} setIsOpen={setIsOpen} onSearchToggle={toggleSearch} isSearchOpen={isSearchOpen} setIsSearchOpen={setIsSearchOpen} />
-                    <SidebarMenu isOpen={isOpen} isSearchOpen={isSearchOpen} />
+                    <SidebarMenu isOpen={isOpen} onClose={onClose} isSearchOpen={isSearchOpen} />
                     {isOpen && <div className="fixed" onClick={toggleMenu} />}
                 </div>
                 <div className="flex-grow p-4 bg-gray-100 overflow-auto lg:w-1/2 2xl:w-3/4 mx-auto">
@@ -53,7 +58,7 @@ function App() {
                                     </div>
                                 </>
                             } />
-
+                        <Route path="/my-board-app/login" element={<LoginPage />} />
                         {/* 상세보기 페이지 */}
                         <Route path="/my-board-app/post/:id" element={<PostDetail posts={posts} />} />
                     </Routes>

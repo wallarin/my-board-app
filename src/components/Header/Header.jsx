@@ -1,4 +1,4 @@
-import { MdMenu, MdSearch, MdAccountCircle, MdClose } from 'react-icons/md';
+import { MdMenu, MdSearch, MdAccountCircle, MdLogin, MdClose } from 'react-icons/md';
 import { GoChevronRight } from "react-icons/go";
 import { Link } from 'react-router-dom';
 
@@ -21,7 +21,11 @@ const Header = ({ toggleMenu, isOpen, setIsOpen, onSearchToggle, isSearchOpen, s
                     )}
                 </button>
 
-                <Link to="/my-board-app" className={`text-xl font-bold lg:absolute lg:left-1/2 lg:transform lg:-translate-x-1/2 ${isSearchOpen ? 'lg:top-1/4' : 'lg:top-2/4'} lg:-translate-y-1/2`}>
+                <Link to="/my-board-app"
+                    onClick={() => {
+                        window.location.href = '/my-board-app';
+                    }}
+                    className={`text-xl font-bold lg:absolute lg:left-1/2 lg:transform lg:-translate-x-1/2 ${isSearchOpen ? 'lg:top-1/4' : 'lg:top-2/4'} lg:-translate-y-1/2`}>
                     Talk Together
                 </Link>
 
@@ -35,7 +39,7 @@ const Header = ({ toggleMenu, isOpen, setIsOpen, onSearchToggle, isSearchOpen, s
 
                     </button>
                     <button>
-                        <MdAccountCircle className="w-8 h-8" />
+                        <Link to="/my-board-app/login"><MdLogin className="w-8 h-8" /></Link>
                     </button>
                 </div>
             </div>
@@ -66,7 +70,7 @@ const Header = ({ toggleMenu, isOpen, setIsOpen, onSearchToggle, isSearchOpen, s
                     )}
                 </button>
                 <button>
-                    <MdAccountCircle className="w-8 h-8" />
+                    <MdLogin className="w-8 h-8" />
                 </button>
             </div>
         </header>

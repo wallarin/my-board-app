@@ -41,8 +41,8 @@ const SidebarMenu = ({ isOpen, onClose, isSearchOpen }) => {
                 )}
 
                 <div ref={contentRef} onScroll={handleScroll} className="flex-1 overflow-y-auto p-4 space-y-4">
-                    <Link to="/my-board-app" className="flex justify-between text-xl border-b border-gray-400 pb-2 break-words block">HOME <MdHome className='w-6 h-6'/></Link>
-                    <Link to="/my-board-app/login" className="flex justify-between text-xl border-b border-gray-400 pb-2 break-words block">LOGIN <MdLogin className='w-6 h-6'/></Link>
+                    <Link to="/my-board-app" onClick={onClose} className="flex justify-between text-xl border-b border-gray-400 pb-2 break-words block">HOME <MdHome className='w-6 h-6'/></Link>
+                    <Link to="/my-board-app/login" onClick={onClose} className="flex justify-between text-xl border-b border-gray-400 pb-2 break-words block">LOGIN <MdLogin className='w-6 h-6'/></Link>
                     <div className="border-b border-gray-400">
                         <button
                             onClick={toggleCustomerCenter}
@@ -54,8 +54,8 @@ const SidebarMenu = ({ isOpen, onClose, isSearchOpen }) => {
                         </button>
                         {isCustomerCenterOpen && (
                             <ul className="pl-4">
-                                <li className="my-2"><Link to="/my-board-app/faq" href="#" className="break-words block">FAQ</Link></li>
-                                <li className="my-2"><Link to="/my-board-app/inquiry" className="break-words block">1:1 문의</Link></li>
+                                <li className="my-2"><Link onClick={onClose} to="/my-board-app/faq" href="#" className="break-words block">FAQ</Link></li>
+                                <li className="my-2"><Link onClick={onClose} to="/my-board-app/inquiry" className="break-words block">1:1 문의</Link></li>
                             </ul>
                         )}
                     </div>
