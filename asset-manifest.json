@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/my-board-app/static/css/main.ac3457a4.css",
-    "main.js": "/my-board-app/static/js/main.976523af.js",
+    "main.js": "/my-board-app/static/js/main.c18a4dca.js",
     "static/media/GmarketSansTTFBold.ttf": "/my-board-app/static/media/GmarketSansTTFBold.69428064ef8eee25be33.ttf",
     "static/media/GmarketSansTTFMedium.ttf": "/my-board-app/static/media/GmarketSansTTFMedium.d4bac6b182bed73c9375.ttf",
     "static/media/GmarketSansTTFLight.ttf": "/my-board-app/static/media/GmarketSansTTFLight.efaa8f19ead1555b1c39.ttf",
     "index.html": "/my-board-app/index.html",
     "main.ac3457a4.css.map": "/my-board-app/static/css/main.ac3457a4.css.map",
-    "main.976523af.js.map": "/my-board-app/static/js/main.976523af.js.map"
+    "main.c18a4dca.js.map": "/my-board-app/static/js/main.c18a4dca.js.map"
   },
   "entrypoints": [
     "static/css/main.ac3457a4.css",
-    "static/js/main.976523af.js"
+    "static/js/main.c18a4dca.js"
   ]
 }
