@@ -48,13 +48,13 @@ const Login = () => {
                     >
                         로그인
                     </button>
-                    <div className='flex justify-between mt-3 text-sm'>
+                    <div className='flex sm:flex-row flex-col justify-between mt-3 text-sm'>
                         <span className='text-gray-400'>아이디 / 패스워드를 잊었다면?</span>
-                        <span className='text-gray-500 underline'>아이디 / 패스워드 찾기</span>
+                        <span className='text-gray-500 underline ml-auto'>아이디 / 패스워드 찾기</span>
                     </div>
-                    <div className='flex justify-between mt-3 text-sm'>
-                        <span className='text-gray-400'>아직 회원이 아니라면?</span>
-                        <Link to="/my-board-app/TermsOfUse" className='text-gray-500 underline'>회원가입하러 가기</Link>
+                    <div className="flex flex-col sm:flex-row justify-between mt-3 text-sm">
+                        <span className="text-gray-400">아직 회원이 아니라면?</span>
+                        <Link to="/my-board-app/TermsOfUse" className="text-gray-500 underline ml-auto">회원가입하러 가기</Link>
                     </div>
                 </form>
             </div>

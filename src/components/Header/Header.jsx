@@ -70,7 +70,7 @@ const Header = ({ toggleMenu, isOpen, setIsOpen, onSearchToggle, isSearchOpen, s
                     )}
                 </button>
                 <button>
-                    <MdLogin className="w-8 h-8" />
+                    <Link to="/my-board-app/login"><MdLogin className="w-8 h-8" /></Link>
                 </button>
             </div>
         </header>

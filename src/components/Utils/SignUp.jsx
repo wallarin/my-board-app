@@ -182,9 +182,9 @@ function SignUp() {
     };
 
     return (
-        <div className="max-w-full lg:max-w-4xl mx-auto p-6 bg-gray-100 h-[calc(100vh-6rem)] flex flex-col items-center justify-center">
-            <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-                <h2 className="text-2xl font-bold mb-6 text-center">회원가입</h2>
+        <div className="max-w-full lg:max-w-4xl mx-auto p-4 lg:p-6 bg-gray-100 min-h-screen lg:h-[calc(100vh-6rem)] flex flex-col items-center justify-center">
+            <div className="bg-white p-6 lg:p-8 rounded-lg shadow-md sm:max-w-sm w-full max-w-md text-sm">
+                <h2 className="text-sm lg:text-2xl font-bold mb-6 text-center">회원가입</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4 relative">
                         <label htmlFor="userid" className="block text-gray-700 font-semibold mb-2">아이디</label>
@@ -229,10 +229,10 @@ function SignUp() {
                                 onBlur={handlePasswordChange}
                             />
                             {isPasswordValid === true && (
-                                <MdCheck className="text-green-500 absolute right-3 top-3 text-xl" />
+                                <MdCheck className="text-green-500 absolute right-3 top-3 text-sm lg:text-xl" />
                             )}
                             {isPasswordValid === false && (
-                                <MdClose className="text-red-500 absolute right-3 top-3 text-xl" />
+                                <MdClose className="text-red-500 absolute right-3 top-3 text-sm lg:text-xl" />
                             )}
                         </div>
                         <p className="text-sm text-gray-500 mt-1">패스워드는 8자 이상 20자 이하로 설정해 주세요.</p>
@@ -252,10 +252,10 @@ function SignUp() {
                                 onChange={handleConfirmPasswordChange}
                             />
                             {isConfirmPasswordValid === true && (
-                                <MdCheck className="text-green-500 absolute right-3 top-3 text-xl" />
+                                <MdCheck className="text-green-500 absolute right-3 top-3 text-sm lg:text-xl" />
                             )}
                             {isConfirmPasswordValid === false && (
-                                <MdClose className="text-red-500 absolute right-3 top-3 text-xl" />
+                                <MdClose className="text-red-500 absolute right-3 top-3 text-sm lg:text-xl" />
                             )}
                         </div>
                         {isConfirmPasswordValid === false && (
@@ -277,10 +277,10 @@ function SignUp() {
                                 onChange={handleNicknameChange}
                             />
                             {isNicknameValid === true && (
-                                <MdCheck className="text-green-500 absolute right-3 top-3 text-xl" />
+                                <MdCheck className="text-green-500 absolute right-3 top-3 text-sm lg:text-xl" />
                             )}
                             {isNicknameValid === false && (
-                                <MdClose className="text-red-500 absolute right-3 top-3 text-xl" />
+                                <MdClose className="text-red-500 absolute right-3 top-3 text-sm lg:text-xl" />
                             )}
                         </div>
                         <p className="text-sm text-gray-500 mt-1">닉네임은 2글자 이상, 8글자 이하로 입력해 주세요.</p>
