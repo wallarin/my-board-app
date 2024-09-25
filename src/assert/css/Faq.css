@@ -1,0 +1,18 @@
+.faq-enter {
+    max-height: 0;
+    opacity: 1; /* 답변은 항상 보여야 하므로 opacity를 1로 설정 */
+    overflow: hidden;
+}
+.faq-enter-active {
+    max-height: 800px; /* 답변 컨테이너의 예상 최대 높이 설정 */
+    transition: max-height 300ms ease;
+}
+.faq-exit {
+    max-height: 200px;
+    opacity: 1;
+}
+.faq-exit-active {
+    max-height: 0;
+    opacity: 1; /* 답변은 항상 보여야 하므로 opacity를 1로 유지 */
+    transition: max-height 300ms ease;
+}

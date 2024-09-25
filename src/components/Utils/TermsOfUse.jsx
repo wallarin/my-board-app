@@ -7,7 +7,7 @@ function TermsOfUse() {
 
     const handleAgree = () => {
         if (agreed) {
-            navigate('/my-board-app/SignUp'); // 회원가입 페이지로 이동
+            navigate('/my-board-app/signUp'); // 회원가입 페이지로 이동
         } else {
             alert('약관에 동의하셔야 합니다.');
         }

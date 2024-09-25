@@ -54,7 +54,7 @@ const Login = () => {
                     </div>
                     <div className="flex flex-col sm:flex-row justify-between mt-3 text-sm">
                         <span className="text-gray-400">아직 회원이 아니라면?</span>
-                        <Link to="/my-board-app/TermsOfUse" className="text-gray-500 underline ml-auto">회원가입하러 가기</Link>
+                        <Link to="/my-board-app/termsOfUse" className="text-gray-500 underline ml-auto">회원가입하러 가기</Link>
                     </div>
                 </form>
             </div>
