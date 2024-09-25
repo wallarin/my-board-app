@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/my-board-app/static/css/main.c7d0dc2d.css",
-    "main.js": "/my-board-app/static/js/main.86e00fd6.js",
+    "main.css": "/my-board-app/static/css/main.a5645342.css",
+    "main.js": "/my-board-app/static/js/main.8739ef95.js",
     "static/media/GmarketSansTTFBold.ttf": "/my-board-app/static/media/GmarketSansTTFBold.69428064ef8eee25be33.ttf",
     "static/media/GmarketSansTTFMedium.ttf": "/my-board-app/static/media/GmarketSansTTFMedium.d4bac6b182bed73c9375.ttf",
     "static/media/GmarketSansTTFLight.ttf": "/my-board-app/static/media/GmarketSansTTFLight.efaa8f19ead1555b1c39.ttf",
     "index.html": "/my-board-app/index.html",
-    "main.c7d0dc2d.css.map": "/my-board-app/static/css/main.c7d0dc2d.css.map",
-    "main.86e00fd6.js.map": "/my-board-app/static/js/main.86e00fd6.js.map"
+    "main.a5645342.css.map": "/my-board-app/static/css/main.a5645342.css.map",
+    "main.8739ef95.js.map": "/my-board-app/static/js/main.8739ef95.js.map"
   },
   "entrypoints": [
-    "static/css/main.c7d0dc2d.css",
-    "static/js/main.86e00fd6.js"
+    "static/css/main.a5645342.css",
+    "static/js/main.8739ef95.js"
   ]
 }
