@@ -6,6 +6,8 @@ import SidebarMenu from "./components/Sidebar/SidebarMenu";
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LoginPage from './components/Utils/Login';
+import TermsOfUse from "./components/Utils/TermsOfUse";
+import SignUp from "./components/Utils/SignUp";
 
 function App() {
 
@@ -59,6 +61,8 @@ function App() {
                                 </>
                             } />
                         <Route path="/my-board-app/login" element={<LoginPage />} />
+                        <Route path="/my-board-app/TermsOfUse" element={<TermsOfUse />} />
+                        <Route path="/my-board-app/SignUp" element={<SignUp />} />
                         {/* 상세보기 페이지 */}
                         <Route path="/my-board-app/post/:id" element={<PostDetail posts={posts} />} />
                     </Routes>

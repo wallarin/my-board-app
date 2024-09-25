@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
     const [userId, setUserId] = useState('');
@@ -53,7 +54,7 @@ const Login = () => {
                     </div>
                     <div className='flex justify-between mt-3 text-sm'>
                         <span className='text-gray-400'>아직 회원이 아니라면?</span>
-                        <span className='text-gray-500 underline'>회원가입하러 가기</span>
+                        <Link to="/my-board-app/TermsOfUse" className='text-gray-500 underline'>회원가입하러 가기</Link>
                     </div>
                 </form>
             </div>
