@@ -20,7 +20,7 @@ const Header = ({ toggleMenu, isOpen, setIsOpen, onSearchToggle, isSearchOpen, s
     };
 
     return (
-        <header className="bg-white text-black p-4 shadow-md flex flex-col items-center justify-between w-full lg:relative lg:flex-row">
+        <header className="bg-white dark:bg-gray-800 text-black dark:text-white p-4 shadow-md dark:shadow-gray-500 flex flex-col items-center justify-between w-full lg:relative lg:flex-row">
             <div className="flex justify-between items-center w-full lg:w-auto">
                 <button onClick={toggleMenu} className={`flex items-center ${!isOpen && 'lg:pointer-events-none'}`}>
                     {isOpen ? (

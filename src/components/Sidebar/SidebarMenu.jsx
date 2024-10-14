@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { MdExpandMore, MdExpandLess, MdArrowDropDown, MdArrowDropUp, MdHome, MdLogin, MdLogout } from 'react-icons/md';
+import { MdExpandMore, MdExpandLess, MdArrowDropDown, MdArrowDropUp, MdHome, MdLogin, MdLogout, MdDarkMode, MdLightMode } from 'react-icons/md';
 import { Link, useNavigate } from 'react-router-dom';
 
 const SidebarMenu = ({ isOpen, onClose, isSearchOpen, isLoggedIn, setIsLoggedIn }) => {
@@ -10,6 +10,26 @@ const SidebarMenu = ({ isOpen, onClose, isSearchOpen, isLoggedIn, setIsLoggedIn 
     const [showScrollUp, setShowScrollUp] = useState(false);
     const [showScrollDown, setShowScrollDown] = useState(false);
     const contentRef = useRef(null);
+
+    // 로컬 스토리지에서 다크 모드 상태를 가져와 초기화
+    const [darkMode, setDarkMode] = useState(
+        localStorage.getItem('darkMode') === 'true' || false
+    );
+
+    // 다크 모드 상태를 로컬 스토리지에 저장하고, Tailwind CSS의 다크 모드 클래스를 제어
+    useEffect(() => {
+        if (darkMode) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+        localStorage.setItem('darkMode', darkMode);
+    }, [darkMode]);
+
+    // 다크 모드 토글 함수
+    const toggleDarkMode = () => {
+        setDarkMode(!darkMode);
+    };
 
     // 스크롤 상태를 확인하여 화살표 표시 여부 결정
     const handleScroll = () => {
@@ -49,7 +69,7 @@ const SidebarMenu = ({ isOpen, onClose, isSearchOpen, isLoggedIn, setIsLoggedIn 
                     </div>
                 )}
 
-                <div ref={contentRef} onScroll={handleScroll} className="flex-1 overflow-y-auto p-4 space-y-4">
+                <div ref={contentRef} onScroll={handleScroll} className="flex-1 overflow-y-auto p-4 space-y-4 dark:bg-gray-600 dark:text-gray-200">
                     <Link to="/my-board-app" onClick={onClose} className="flex justify-between text-xl border-b border-gray-400 pb-2 break-words block">HOME <MdHome className='w-6 h-6'/></Link>
                     {/* 로그인 상태에 따라 다른 버튼 표시 */}
                     {isLoggedIn ? (
@@ -85,7 +105,27 @@ const SidebarMenu = ({ isOpen, onClose, isSearchOpen, isLoggedIn, setIsLoggedIn 
                     </div>
                 )}
 
-                <footer className="p-4 bg-gray-300 text-center">
+                {/* 다크 모드 토글 버튼 - 저작권 영역 바로 위에 */}
+                <div className="p-4 bg-gray-300 dark:bg-gray-700 text-center">
+                    <button
+                        onClick={toggleDarkMode}
+                        className="flex items-center justify-center p-2 text-lg bg-gray-200 dark:bg-gray-600 dark:text-gray-200 rounded-full mx-auto"
+                    >
+                        {darkMode ? (
+                            <>
+                                <MdLightMode className="w-6 h-6 mx-3 text-yellow-400" />
+                                <span className='mr-3'>라이트 모드</span>
+                            </>
+                        ) : (
+                            <>
+                                <MdDarkMode className="w-6 h-6 mx-3 text-gray-800" /> 
+                                <span className='mr-3'>다크 모드</span>
+                            </>
+                        )}
+                    </button>
+                </div>
+
+                <footer className="p-4 bg-gray-300 text-center dark:text-gray-200 dark:bg-gray-700">
                     <p>© 2024. 저작권 Co. <br/>All rights reserved</p>
                 </footer>
             </nav>

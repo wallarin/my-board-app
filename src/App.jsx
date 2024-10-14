@@ -59,7 +59,7 @@ function App() {
 
     return (
         <Router>
-            <div className="App min-w-[375px] min-h-[667px]">
+            <div className="App min-w-[375px] min-h-[667px] dark:bg-gray-800">
                 <div className='relative'>
                     <Header
                         toggleMenu={toggleMenu}
@@ -74,7 +74,7 @@ function App() {
                     <SidebarMenu isOpen={isOpen} onClose={onClose} isSearchOpen={isSearchOpen} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
                     {isOpen && <div className="fixed" onClick={toggleMenu} />}
                 </div>
-                <div className="flex-grow p-4 bg-gray-100 overflow-auto lg:w-1/2 2xl:w-3/4 mx-auto">
+                <div className="flex-grow p-4 bg-gray-100 dark:bg-gray-700 overflow-auto lg:w-1/2 2xl:w-3/4 mx-auto">
                     <Routes>
                         <Route path="/my-board-app"
                             element={
