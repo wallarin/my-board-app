@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { MdExpandMore, MdExpandLess, MdArrowDropDown, MdArrowDropUp, MdHome, MdLogin } from 'react-icons/md';
-import { Link } from 'react-router-dom';
+import { MdExpandMore, MdExpandLess, MdArrowDropDown, MdArrowDropUp, MdHome, MdLogin, MdLogout } from 'react-icons/md';
+import { Link, useNavigate } from 'react-router-dom';
 
-const SidebarMenu = ({ isOpen, onClose, isSearchOpen }) => {
+const SidebarMenu = ({ isOpen, onClose, isSearchOpen, isLoggedIn, setIsLoggedIn }) => {
     const [isCustomerCenterOpen, setIsCustomerCenterOpen] = useState(false);
     const toggleCustomerCenter = () => setIsCustomerCenterOpen(!isCustomerCenterOpen);
+    const navigate = useNavigate();
 
     const [showScrollUp, setShowScrollUp] = useState(false);
     const [showScrollDown, setShowScrollDown] = useState(false);
@@ -22,6 +23,14 @@ const SidebarMenu = ({ isOpen, onClose, isSearchOpen }) => {
     useEffect(() => {
         handleScroll();  // 초기 로딩 시 스크롤 상태 확인
     }, []);
+
+    // 로그아웃 처리 함수
+    const handleLogout = () => {
+        localStorage.removeItem('token'); // JWT 토큰 삭제
+        setIsLoggedIn(false); // 로그인 상태를 업데이트
+        onClose(); // 메뉴 닫기
+        navigate('/my-board-app'); // 로그아웃 후 메인 페이지로 리다이렉트
+    };
 
     return (
         <>
@@ -42,7 +51,16 @@ const SidebarMenu = ({ isOpen, onClose, isSearchOpen }) => {
 
                 <div ref={contentRef} onScroll={handleScroll} className="flex-1 overflow-y-auto p-4 space-y-4">
                     <Link to="/my-board-app" onClick={onClose} className="flex justify-between text-xl border-b border-gray-400 pb-2 break-words block">HOME <MdHome className='w-6 h-6'/></Link>
-                    <Link to="/my-board-app/login" onClick={onClose} className="flex justify-between text-xl border-b border-gray-400 pb-2 break-words block">LOGIN <MdLogin className='w-6 h-6'/></Link>
+                    {/* 로그인 상태에 따라 다른 버튼 표시 */}
+                    {isLoggedIn ? (
+                        <button onClick={handleLogout} className="flex justify-between text-xl border-b border-gray-400 pb-2 break-words w-full text-left">
+                            LOGOUT <MdLogout className='w-6 h-6'/>
+                        </button>
+                    ) : (
+                        <Link to="/my-board-app/login" onClick={onClose} className="flex justify-between text-xl border-b border-gray-400 pb-2 break-words block">
+                            LOGIN <MdLogin className='w-6 h-6'/>
+                        </Link>
+                    )}
                     <div className="border-b border-gray-400">
                         <button
                             onClick={toggleCustomerCenter}

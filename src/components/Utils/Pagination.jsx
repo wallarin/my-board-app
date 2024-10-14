@@ -24,12 +24,12 @@ const Pagination = ({ totalPosts, postsPerPage, currentPage, onPageChange }) => 
         }
     };
 
-    const handlePrevGroup = () => {
-        if (startPage > 1) {
-            setCurrentGroup(currentGroup - 1);
-            onPageChange(startPage - 10);  // 이전 그룹의 첫 페이지로 이동
-        }
-    };
+    // const handlePrevGroup = () => {
+    //     if (startPage > 1) {
+    //         setCurrentGroup(currentGroup - 1);
+    //         onPageChange(startPage - 10);  // 이전 그룹의 첫 페이지로 이동
+    //     }
+    // };
 
     const handleFirstPage = () => {
         setCurrentGroup(1);

@@ -1,13 +1,22 @@
-import { MdMenu, MdSearch, MdAccountCircle, MdLogin, MdClose } from 'react-icons/md';
+import { MdMenu, MdSearch, MdLogin, MdClose, MdPerson, MdLogout } from 'react-icons/md';
 import { GoChevronRight } from "react-icons/go";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-const Header = ({ toggleMenu, isOpen, setIsOpen, onSearchToggle, isSearchOpen, setIsSearchOpen }) => {
+const Header = ({ toggleMenu, isOpen, setIsOpen, onSearchToggle, isSearchOpen, setIsSearchOpen, isLoggedIn, setIsLoggedIn }) => {
+    const navigate = useNavigate();
 
     const toggleSearch = () => {
         setIsOpen(false)
         setIsSearchOpen(!isSearchOpen);
         onSearchToggle(!isSearchOpen);
+    };
+
+    // 로그아웃 처리 함수
+    const handleLogout = () => {
+        localStorage.removeItem('token'); // 토큰 삭제
+        setIsLoggedIn(false); // 로그인 상태 변경
+        alert('로그아웃 하였습니다.');
+        navigate('/my-board-app'); // 로그아웃 후 메인 페이지로 이동
     };
 
     return (
@@ -38,9 +47,25 @@ const Header = ({ toggleMenu, isOpen, setIsOpen, onSearchToggle, isSearchOpen, s
                         )}
 
                     </button>
-                    <button>
-                        <Link to="/my-board-app/login"><MdLogin className="w-8 h-8" /></Link>
-                    </button>
+                    {/* 로그인 상태에 따라 다르게 표시 */}
+                    {isLoggedIn ? (
+                        <>
+                            {/* 내 정보 보기 아이콘 */}
+                            <button>
+                                <Link to="/my-board-app/profile">
+                                    <MdPerson className="w-8 h-8" />
+                                </Link>
+                            </button>
+                            {/* 로그아웃 버튼 */}
+                            <button onClick={handleLogout}>
+                                <span className="text-sm">로그아웃</span>
+                            </button>
+                        </>
+                    ) : (
+                        <button>
+                            <Link to="/my-board-app/login"><MdLogin className="w-8 h-8" /></Link>
+                        </button>
+                    )}
                 </div>
             </div>
 
@@ -69,9 +94,26 @@ const Header = ({ toggleMenu, isOpen, setIsOpen, onSearchToggle, isSearchOpen, s
                         <MdSearch className="w-8 h-8" />
                     )}
                 </button>
-                <button>
-                    <Link to="/my-board-app/login"><MdLogin className="w-8 h-8" /></Link>
-                </button>
+                {/* 로그인 상태에 따라 다르게 표시 */}
+                {isLoggedIn ? (
+                    <>
+                        {/* 내 정보 보기 아이콘 */}
+                        <button>
+                            <Link to="/my-board-app/profile">
+                                <MdPerson className="w-8 h-8" />
+                            </Link>
+                        </button>
+                        {/* 로그아웃 버튼 */}
+                        <button onClick={handleLogout}>
+                            {/* <span className="text-sm">로그아웃</span> */}
+                            <MdLogout className='w-8 h-8' />
+                        </button>
+                    </>
+                ) : (
+                    <button>
+                        <Link to="/my-board-app/login"><MdLogin className="w-8 h-8" /></Link>
+                    </button>
+                )}
             </div>
         </header>
     );

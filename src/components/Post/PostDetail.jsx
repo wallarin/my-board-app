@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { MdThumbUp, MdThumbDown } from 'react-icons/md';
+import { MdThumbUp } from 'react-icons/md';
 import CommentSection from './CommentSection';
 
 function PostDetail({ posts }) {
@@ -15,38 +15,9 @@ function PostDetail({ posts }) {
         // 더 많은 댓글을 추가하세요.
     ]);
 
-    const [newComment, setNewComment] = useState("");
-
     if (!post) {
         return <div className="text-center text-red-500">게시글을 찾을 수 없습니다.</div>;
     }
-
-    // 댓글 추가 함수
-    const handleAddComment = () => {
-        if (newComment.trim() === "") return;
-        const newCommentObject = {
-            id: comments.length + 1,
-            author: "사용자", // 실제 앱에서는 현재 로그인한 사용자로 변경
-            content: newComment,
-            likes: 0,
-            dislikes: 0
-        };
-        setComments([...comments, newCommentObject]);
-        setNewComment("");
-    };
-
-    // 댓글 추천/비추천 함수
-    const handleLike = (commentId) => {
-        setComments(comments.map(comment =>
-            comment.id === commentId ? { ...comment, likes: comment.likes + 1 } : comment
-        ));
-    };
-
-    const handleDislike = (commentId) => {
-        setComments(comments.map(comment =>
-            comment.id === commentId ? { ...comment, dislikes: comment.dislikes + 1 } : comment
-        ));
-    };
 
     return (
         <div className="max-w-full lg:max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg h-[calc(100vh-8rem)] overflow-y-auto">

@@ -1,18 +1,49 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-const Login = () => {
+const Login = ({ isLoggedIn, setIsLoggedIn }) => {
     const [userId, setUserId] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    // 로그인 상태를 확인하고, 이미 로그인한 경우 리다이렉트
+    useEffect(() => {
+        if (isLoggedIn) {
+            navigate('/my-board-app'); // 로그인한 상태라면 메인 페이지로 리다이렉트
+        }
+    }, [isLoggedIn, navigate]);
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (userId && password) {
-            alert('로그인 성공!');
-        } else {
+        // if (userId && password) {
+        //     alert('로그인 성공!');
+        // } else {
+        //     setError('아이디와 비밀번호를 입력해주세요.');
+        // }
+        if (!userId || !password) {
             setError('아이디와 비밀번호를 입력해주세요.');
+            return;
+        }
+
+        try {
+            const response = await axios.post('/api/user/login', {
+                userId: userId,
+                password: password
+            });
+
+            // JWT 토큰을 로컬 스토리지에 저장
+            localStorage.setItem('token', response.data);
+
+            setIsLoggedIn(true);
+            // 로그인 성공 후 리다이렉트
+            alert('로그인 성공!');
+            navigate('/my-board-app'); // 예: 대시보드 페이지로 이동
+        } catch (err) {
+            setError('로그인에 실패했습니다. 다시 시도해주세요.');
+            console.error('로그인 오류:', err);
         }
     };
 
