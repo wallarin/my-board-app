@@ -3,7 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, PhoneAuthProvider, RecaptchaVerifier, signInWithCredential, initializeAuth, signInWithPhoneNumber } from "firebase/auth";
 
 const firebaseConfigTest = {
-    apiKey: "AIzaSyAHo_Crwl1yVIclXe4r8Bt9EUqAZdWxHN0",
+    apiKey: "",
     authDomain: "my-board-app-54dbe.firebaseapp.com",
     projectId: "my-board-app-54dbe",
     storageBucket: "my-board-app-54dbe.appspot.com",
