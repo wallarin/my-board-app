@@ -40,8 +40,8 @@ const MobilePostList = ({ posts }) => {
             <div ref={contentRef} className="space-y-4 lg:space-y-6 h-[calc(100%-3rem)] overflow-y-auto pr-4">
                 {posts.slice(0, visiblePosts).map(post => (
                     <Link
-                        to={`/my-board-app/post/${post.id}`}
-                        key={post.id}
+                        to={`/my-board-app/post/${post.postId}`}
+                        key={post.postId}
                         className="block bg-white p-4 rounded-lg shadow cursor-pointer hover:text-orange-100 visited:text-gray-500"
                     >
                         <div className="flex justify-between">
@@ -50,8 +50,8 @@ const MobilePostList = ({ posts }) => {
                                     {post.title}
                                 </h2>
                                 <div className="flex justify-between text-sm text-gray-600 mt-1">
-                                    <span>{post.nickName}</span>
-                                    <span>{post.writeDate === today ? `${post.writeTime}` : post.writeDate}</span>
+                                    <span>{post.nickname}</span>
+                                    <span>{post.writeDate === today ? `${post.writeDate}` : post.writeTime}</span>
                                     <span className="flex items-center text-blue-500">
                                         <MdThumbUp className="w-4 h-4 mr-1" />
                                         {formatRecommendationCount(post.likeCount)}

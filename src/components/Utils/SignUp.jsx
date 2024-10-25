@@ -4,11 +4,12 @@ import { handleSendCode, handleVerifyCode } from './Certification';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-function SignUp({ isLoggedIn }) {
+function SignUp({ agreeTerms, setAgreedTems, isLoggedIn }) {
 
     const navigate = useNavigate();
 
     useEffect(() => {
+        if (!agreeTerms) { navigate('/my-board-app/TermsOfUse'); }
         if (isLoggedIn) {
             navigate('/my-board-app'); // 로그인한 상태라면 메인 페이지로 리다이렉트
         }
@@ -315,6 +316,7 @@ function SignUp({ isLoggedIn }) {
             setSuccess('회원가입이 성공적으로 완료되었습니다!');
             setError('');
 
+            setAgreedTems(false);
             alert('회원가입이 정상적으로 이루어졌습니다.\n로그인페이지로 이동합니다.')
             // 회원가입 완료 후 로그인 페이지로 이동
             navigate('/my-board-app/login');

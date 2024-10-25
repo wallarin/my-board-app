@@ -1,0 +1,15 @@
+@keyframes sparkle {
+    0%, 100% {
+      transform: scale(1);
+      filter: brightness(1);
+    }
+    50% {
+      transform: scale(1.3);
+      filter: brightness(2);
+    }
+  }
+  
+  .liked-animation {
+    animation: sparkle 0.5s ease-in-out; /* 반짝이는 애니메이션 */
+  }
+  

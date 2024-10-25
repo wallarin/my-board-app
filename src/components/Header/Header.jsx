@@ -14,6 +14,7 @@ const Header = ({ toggleMenu, isOpen, setIsOpen, onSearchToggle, isSearchOpen, s
     // 로그아웃 처리 함수
     const handleLogout = () => {
         localStorage.removeItem('token'); // 토큰 삭제
+        localStorage.removeItem('userId');
         setIsLoggedIn(false); // 로그인 상태 변경
         alert('로그아웃 하였습니다.');
         navigate('/my-board-app'); // 로그아웃 후 메인 페이지로 이동

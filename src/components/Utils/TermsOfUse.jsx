@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function TermsOfUse() {
+function TermsOfUse({ setAgreedTems }) {
     const [agreed, setAgreed] = useState(false);
     const navigate = useNavigate();
 
     const handleAgree = () => {
         if (agreed) {
+            setAgreedTems(agreed);
             navigate('/my-board-app/signUp'); // 회원가입 페이지로 이동
         } else {
             alert('약관에 동의하셔야 합니다.');

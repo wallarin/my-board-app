@@ -35,9 +35,9 @@ function CommentSection({ comments, setComments, postAuthor }) {
         <div className="mt-12">
             <h2 className="text-2xl font-semibold text-gray-800 mb-4">댓글</h2>
             <div className="space-y-4">
-                {comments.map(comment => (
+                {comments.map((comment, index) => (
                     <div
-                        key={comment.id}
+                        key={index}
                         className={`p-4 rounded-lg flex justify-between ${(comment.likes - comment.dislikes) >= 15 ? 'bg-yellow-100 border border-yellow-500 shadow-lg' : 'bg-gray-100'} transition-all`}
                     >
                         <div className="text-sm text-gray-600 flex-1">

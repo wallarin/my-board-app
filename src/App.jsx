@@ -4,6 +4,7 @@ import PostDetail from "./components/Post/PostDetail";
 import MobilePostList from "./components/Post/MobilePostList";
 import SidebarMenu from "./components/Sidebar/SidebarMenu";
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LoginPage from './components/Utils/Login';
 import TermsOfUse from "./components/Utils/TermsOfUse";
@@ -12,21 +13,25 @@ import Faq from "./components/Utils/FaqList";
 import Inquiry from "./components/Utils/Inquiry";
 import Test from "./components/Test";
 
+import PostWrite from "./components/Post/PostWrite";
+
 function App() {
 
-    const posts = Array.from({ length: 300 }, (_, index) => ({
-        id: index + 1,
-        title: `${index + 1} 번째 게시글 말줄임표가 정상적으로 실행되는 상태인지 확인해보기 위해 작성된 텍스트입니다.`,
-        content: `이것은 ${index + 1} 번째 게시글입니다.`,
-        nickName: '주작',
-        writeDate: '2024-09-23',
-        writeTime: '12:09',
-        likeCount: 22000,
-    }));
+    // const posts = Array.from({ length: 300 }, (_, index) => ({
+    //     id: index + 1,
+    //     title: `${index + 1} 번째 게시글 말줄임표가 정상적으로 실행되는 상태인지 확인해보기 위해 작성된 텍스트입니다.`,
+    //     content: `이것은 ${index + 1} 번째 게시글입니다.`,
+    //     nickName: '주작',
+    //     writeDate: '2024-09-23',
+    //     writeTime: '12:09',
+    //     likeCount: 22000,
+    // }));
 
     const [isOpen, setIsOpen] = useState(false);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [agreeTerms, setAgreedTems] = useState(false);
+    const [posts, setPosts] = useState([]);  // 게시글 목록을 위한 상태
 
     // 로그인 상태 확인
     useEffect(() => {
@@ -36,6 +41,19 @@ function App() {
         } else {
             setIsLoggedIn(false);
         }
+    }, []);
+
+    // DB에서 게시글 목록을 가져오는 함수
+    useEffect(() => {
+        const fetchPosts = async () => {
+            try {
+                const response = await axios.get('/api/board/list');  // 백엔드 API 호출
+                setPosts(response.data);  // 게시글 목록을 상태에 저장
+            } catch (error) {
+                console.error('게시글 목록을 가져오는 중 오류 발생:', error);
+            }
+        };
+        fetchPosts();
     }, []);
 
     const onClose = () => {
@@ -89,12 +107,14 @@ function App() {
                                 </>
                             } />
                         <Route path="/my-board-app/login" element={<LoginPage isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
-                        <Route path="/my-board-app/termsOfUse" element={<TermsOfUse />} />
-                        <Route path="/my-board-app/signUp" element={<SignUp isLoggedIn={isLoggedIn} />} />
+                        <Route path="/my-board-app/termsOfUse" element={<TermsOfUse setAgreedTems={setAgreedTems}/>} />
+                        <Route path="/my-board-app/signUp" element={<SignUp agreeTerms={agreeTerms} setAgreedTems={setAgreedTems} isLoggedIn={isLoggedIn} />} />
                         <Route path="/my-board-app/faq" element={<Faq />} />
                         <Route path="/my-board-app/inquiry" element={<Inquiry />} />
                         <Route path="/my-board-app/test" element={<Test />} />
                         {/* 상세보기 페이지 */}
+                        <Route path="/my-board-app/postwrite" element={<PostWrite isLoggedIn={isLoggedIn}/>} />
+                        <Route path="/my-board-app/post/:id/edit" element={<PostWrite isLoggedIn={isLoggedIn} editMode={true} />} />
                         <Route path="/my-board-app/post/:id" element={<PostDetail posts={posts} />} />
                     </Routes>
                 </div>
