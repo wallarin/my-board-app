@@ -14,7 +14,8 @@ function PostDetail({ posts }) {
     const [loading, setLoading] = useState(true);
     const [post, setPost] = useState(null);
     // const post = posts.content ? posts.content.find(post => post.postId === parseInt(id)) : null;
-    const userId = localStorage.getItem('userId');
+    //const userId = localStorage.getItem('userId');
+    const userId = sessionStorage.getItem('userId');
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -83,7 +84,7 @@ function PostDetail({ posts }) {
     const handleDeleteClick = async () => {
         if (window.confirm('정말 이 글을 삭제하시겠습니까?')) {
             try {
-                const token = localStorage.getItem('token');
+                const token = sessionStorage.getItem('token');
                 const response = await axios.delete(`/api/board/${post.postId}/delete`, {
                     headers: {
                         'Authorization': `Bearer ${token}`

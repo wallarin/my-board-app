@@ -35,8 +35,8 @@ const Login = ({ isLoggedIn, setIsLoggedIn }) => {
             });
 
             // JWT 토큰을 로컬 스토리지에 저장
-            localStorage.setItem('token', response.data);
-            localStorage.setItem('userId', userId);
+            sessionStorage.setItem('token', response.data);
+            sessionStorage.setItem('userId', userId)
 
             setIsLoggedIn(true);
             // 로그인 성공 후 리다이렉트

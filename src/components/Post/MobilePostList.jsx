@@ -22,8 +22,10 @@ const MobilePostList = ({ posts }) => {
         }
     };
 
-    // 오늘 날짜를 가져옵니다.
-    const today = new Date().toISOString().split('T')[0];
+    const offset = new Date().getTimezoneOffset() * 60000;
+    // 오늘 날짜를 가져옵니다. => 문제 발생 UTC 기준으로 가져와져서 9시간의 차이가 발생한다.
+    //const today = new Date().toISOString().split('T')[0];
+    const today = new Date(Date.now() - offset).toISOString().split('T')[0];
 
     // 추천수 포맷팅 함수
     const formatRecommendationCount = (count) => {

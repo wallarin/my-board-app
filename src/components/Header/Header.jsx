@@ -13,8 +13,8 @@ const Header = ({ toggleMenu, isOpen, setIsOpen, onSearchToggle, isSearchOpen, s
 
     // 로그아웃 처리 함수
     const handleLogout = () => {
-        localStorage.removeItem('token'); // 토큰 삭제
-        localStorage.removeItem('userId');
+        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('userId');
         setIsLoggedIn(false); // 로그인 상태 변경
         alert('로그아웃 하였습니다.');
         navigate('/my-board-app'); // 로그아웃 후 메인 페이지로 이동
@@ -39,7 +39,7 @@ const Header = ({ toggleMenu, isOpen, setIsOpen, onSearchToggle, isSearchOpen, s
                     Talk Together
                 </Link>
 
-                <div className="flex space-x-4 lg:hidden">
+                {/* <div className="flex space-x-4 lg:hidden">
                     <button onClick={toggleSearch}>
                         {isSearchOpen ? (
                             <MdClose className='w-8 h-8' />
@@ -48,16 +48,13 @@ const Header = ({ toggleMenu, isOpen, setIsOpen, onSearchToggle, isSearchOpen, s
                         )}
 
                     </button>
-                    {/* 로그인 상태에 따라 다르게 표시 */}
                     {isLoggedIn ? (
                         <>
-                            {/* 내 정보 보기 아이콘 */}
                             <button>
                                 <Link to="/my-board-app/profile">
                                     <MdPerson className="w-8 h-8" />
                                 </Link>
                             </button>
-                            {/* 로그아웃 버튼 */}
                             <button onClick={handleLogout}>
                                 <span className="text-sm">로그아웃</span>
                             </button>
@@ -67,7 +64,7 @@ const Header = ({ toggleMenu, isOpen, setIsOpen, onSearchToggle, isSearchOpen, s
                             <Link to="/my-board-app/login"><MdLogin className="w-8 h-8" /></Link>
                         </button>
                     )}
-                </div>
+                </div> */}
             </div>
 
             {/* 검색창 */}
@@ -87,7 +84,7 @@ const Header = ({ toggleMenu, isOpen, setIsOpen, onSearchToggle, isSearchOpen, s
             )}
 
             {/* 큰 화면용 아이콘 */}
-            <div className="hidden lg:flex space-x-4 absolute right-4 top-4">
+            {/* <div className="hidden lg:flex space-x-4 absolute right-4 top-4">
                 <button onClick={toggleSearch}>
                     {isSearchOpen ? (
                         <MdClose className='w-8 h-8' />
@@ -95,18 +92,14 @@ const Header = ({ toggleMenu, isOpen, setIsOpen, onSearchToggle, isSearchOpen, s
                         <MdSearch className="w-8 h-8" />
                     )}
                 </button>
-                {/* 로그인 상태에 따라 다르게 표시 */}
                 {isLoggedIn ? (
                     <>
-                        {/* 내 정보 보기 아이콘 */}
                         <button>
                             <Link to="/my-board-app/profile">
                                 <MdPerson className="w-8 h-8" />
                             </Link>
                         </button>
-                        {/* 로그아웃 버튼 */}
                         <button onClick={handleLogout}>
-                            {/* <span className="text-sm">로그아웃</span> */}
                             <MdLogout className='w-8 h-8' />
                         </button>
                     </>
@@ -115,7 +108,7 @@ const Header = ({ toggleMenu, isOpen, setIsOpen, onSearchToggle, isSearchOpen, s
                         <Link to="/my-board-app/login"><MdLogin className="w-8 h-8" /></Link>
                     </button>
                 )}
-            </div>
+            </div> */}
         </header>
     );
 };

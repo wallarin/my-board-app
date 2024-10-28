@@ -40,8 +40,8 @@ function App() {
     // 로그인 상태 확인
     useEffect(() => {
         
-        const token = localStorage.getItem('token');
-        if (token) {
+        const sessionToken = sessionStorage.getItem('token');
+        if (sessionToken) {
             setIsLoggedIn(true);
         } else {
             setIsLoggedIn(false);
@@ -82,7 +82,8 @@ function App() {
 
     // 로그아웃 함수
     const handleLogout = () => {
-        localStorage.removeItem('token');
+        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('userId');
         setIsLoggedIn(false);
     };
 

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../../assert/css/Scroll.css';
 import Pagination from '../Utils/Pagination.jsx';
-import { MdThumbUp } from 'react-icons/md';
+import { MdThumbUp, MdSearch } from 'react-icons/md';
 
 function PostList({ posts, currentPage, totalPages, setCurrentPage }) {
 
@@ -17,8 +17,10 @@ function PostList({ posts, currentPage, totalPages, setCurrentPage }) {
         setCurrentPage(pageNumber);
     };
 
-    // 오늘 날짜를 가져옵니다.
-    const today = new Date().toISOString().split('T')[0];
+    const offset = new Date().getTimezoneOffset() * 60000;
+    // 오늘 날짜를 가져옵니다. => 문제 발생 UTC 기준으로 가져와져서 9시간의 차이가 발생한다.
+    //const today = new Date().toISOString().split('T')[0];
+    const today = new Date(Date.now() - offset).toISOString().split('T')[0];
 
     // 추천수 포맷팅 함수
     const formatRecommendationCount = (count) => {
@@ -73,6 +75,19 @@ function PostList({ posts, currentPage, totalPages, setCurrentPage }) {
                 currentPage={currentPage}
                 onPageChange={handlePageChange}
             />
+
+            <div className='flex justify-center mt-6'>
+                <select className='p-2 rounded dark:bg-gray-300 dark:text-gray-800'>
+                    <option value="title">제목</option>
+                    <option value="contents">내용</option>
+                    <option value="title_contents">제목+내용</option>
+                    <option value="writer">글쓴이</option>
+                </select>
+                <input type='text' className='px-2 mx-8 rounded dark:bg-gray-300 dark:text-gray-800'/>
+                <button className='text-white bg-blue-600 dark:bg-blue-400 px-3 rounded'>
+                    <MdSearch className="w-8 h-8" />
+                </button>
+            </div>
 
             <button 
                 onClick={handleWritePost}

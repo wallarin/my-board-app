@@ -8,7 +8,7 @@ const PostWrite = ({ isLoggedIn, editMode = false, existingPost = null }) => {
     const [content, setContent] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
-    const userId = localStorage.getItem('userId');
+    const userId = sessionStorage.getItem('userId');
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -44,8 +44,8 @@ const PostWrite = ({ isLoggedIn, editMode = false, existingPost = null }) => {
 
         try {
 
-            const userId = localStorage.getItem('userId');
-            const token = localStorage.getItem('token');
+            const userId = sessionStorage.getItem('userId');
+            const token = sessionStorage.getItem('token');
 
             // 서버로 보낼 글 데이터
             const postData = {

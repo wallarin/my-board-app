@@ -46,7 +46,7 @@ const SidebarMenu = ({ isOpen, onClose, isSearchOpen, isLoggedIn, setIsLoggedIn 
 
     // 로그아웃 처리 함수
     const handleLogout = () => {
-        localStorage.removeItem('token'); // JWT 토큰 삭제
+        sessionStorage.removeItem('token'); // JWT 토큰 삭제
         setIsLoggedIn(false); // 로그인 상태를 업데이트
         onClose(); // 메뉴 닫기
         navigate('/my-board-app'); // 로그아웃 후 메인 페이지로 리다이렉트

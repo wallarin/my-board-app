@@ -48,12 +48,12 @@ function FaqItem({ faq, isOpen, onClick }) {
                 className="overflow-hidden transition-height duration-300 ease" 
                 style={{ height }}
             >
-                <div ref={contentRef} className="p-4 bg-gray-100 flex justify-end items-center rounded-lg">
+                <div ref={contentRef} className="p-4 bg-gray-100 flex justify-end items-center rounded-lg dark:bg-gray-400">
                     <div className="flex items-start">
                         <div className="mr-2 mt-1 text-yellow-400">
                             <MdChatBubble />
                         </div>
-                        <div className="bg-yellow-200 p-4 rounded-lg max-w-xs lg:max-w-lg text-right leading-relaxed">
+                        <div className="bg-yellow-200 dark:bg-yellow-500 p-4 rounded-lg max-w-xs lg:max-w-lg text-right leading-relaxed">
                             {faq.answer}
                         </div>
                     </div>
@@ -109,7 +109,7 @@ function Faq() {
     const totalPosts = selectedCategory === 'all' ? allFaqs.length : faqs[selectedCategory].length;
 
     return (
-        <div className="max-w-xl mx-auto mt-8 h-[calc(100vh-8rem)] overflow-y-auto">
+        <div className="max-w-xl mx-auto mt-8 h-[calc(100vh-8rem)] overflow-y-auto dark:text-white">
             <div className="mb-4 flex justify-around">
                 <label>
                     <input
