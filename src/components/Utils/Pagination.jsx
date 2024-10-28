@@ -63,20 +63,26 @@ const Pagination = ({ totalPosts, postsPerPage, currentPage, onPageChange }) => 
         <div className="flex justify-between items-center mt-4">
             {/* 왼쪽 네비게이션 */}
             <div className="flex space-x-1">
-                <button
-                    className={`px-2 py-1 border rounded flex items-center justify-center transition-colors duration-200 ${currentPage === 1 ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'hover:bg-blue-700 hover:text-white'}`}
-                    onClick={handleFirstPage}
-                    disabled={currentPage === 1}
-                >
-                    <MdFirstPage className="w-5 h-5" />
-                </button>
-                <button
-                    className={`px-2 py-1 border rounded flex items-center justify-center transition-colors duration-200 ${currentPage === 1 ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'hover:bg-blue-700 hover:text-white'}`}
-                    onClick={handlePrevPage}
-                    disabled={currentPage === 1}
-                >
-                    <MdNavigateBefore className="w-5 h-5" />
-                </button>
+                <div className='group'>
+                    <button
+                        className={`px-2 py-1 border rounded flex items-center justify-center transition-colors duration-200 
+                            ${currentPage === 1 ? 'bg-gray-600 text-gray-500 cursor-not-allowed' : 'group-hover:bg-blue-700 hover:text-white dark:text-white dark:bg-gray-400'}`}
+                        onClick={handleFirstPage}
+                        disabled={currentPage === 1}
+                    >
+                        <MdFirstPage className="w-5 h-5" />
+                    </button>
+                </div>
+                <div className='group'>
+                    <button
+                        className={`px-2 py-1 border rounded flex items-center justify-center transition-colors duration-200 
+                            ${currentPage === 1 ? 'bg-gray-600 text-gray-500 cursor-not-allowed' : 'group-hover:bg-blue-700 hover:text-white dark:text-white dark:bg-gray-400'}`}
+                        onClick={handlePrevPage}
+                        disabled={currentPage === 1}
+                    >
+                        <MdNavigateBefore className="w-5 h-5" />
+                    </button>
+                </div>
             </div>
 
             {/* 페이지 번호 */}
@@ -94,20 +100,26 @@ const Pagination = ({ totalPosts, postsPerPage, currentPage, onPageChange }) => 
 
             {/* 오른쪽 네비게이션 */}
             <div className="flex space-x-1">
-                <button
-                    className={`px-2 py-1 border rounded flex items-center justify-center transition-colors duration-200 ${currentPage === totalPages ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'hover:bg-blue-700 hover:text-white'}`}
-                    onClick={handleNextPage}
-                    disabled={currentPage === totalPages}
-                >
-                    <MdNavigateNext className="w-5 h-5" />
-                </button>
-                <button
-                    className={`px-2 py-1 border rounded flex items-center justify-center transition-colors duration-200 ${currentPage === totalPages ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'hover:bg-blue-700 hover:text-white'}`}
-                    onClick={handleLastPage}
-                    disabled={currentPage === totalPages}
-                >
-                    <MdLastPage className="w-5 h-5" />
-                </button>
+                <div className="group">
+                    <button
+                        className={`px-2 py-1 border rounded flex items-center justify-center transition-colors duration-200 
+                            ${currentPage === totalPages ? 'bg-gray-600 text-gray-500 cursor-not-allowed' : 'group-hover:bg-blue-700 hover:text-white dark:text-white dark:bg-gray-400'}`}
+                        onClick={handleNextPage}
+                        disabled={currentPage === totalPages}
+                    >
+                        <MdNavigateNext className="w-5 h-5" />
+                    </button>
+                </div>
+                <div className="group">
+                    <button
+                        className={`px-2 py-1 border rounded flex items-center justify-center transition-colors duration-200 
+                            ${currentPage === totalPages ? 'bg-gray-600 text-gray-500 cursor-not-allowed' : 'group-hover:bg-blue-700 hover:text-white dark:text-white dark:bg-gray-400'}`}
+                        onClick={handleLastPage}
+                        disabled={currentPage === totalPages}
+                    >
+                        <MdLastPage className="w-5 h-5" />
+                    </button>
+                </div>
             </div>
         </div>
     );

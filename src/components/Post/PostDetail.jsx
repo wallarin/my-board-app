@@ -4,13 +4,29 @@ import { MdThumbUp, MdThumbDown } from 'react-icons/md';
 import CommentSection from './CommentSection';
 import PostWrite from './PostWrite';
 import './LikeButton.css';
+import axios from 'axios';
 
 function PostDetail({ posts }) {
     const { id } = useParams();
     const navigate = useNavigate();
 
-    const post = posts.find(post => post.postId === parseInt(id));
+//    const post = posts.find(post => post.postId === parseInt(id));
+    const [loading, setLoading] = useState(true);
+    const [post, setPost] = useState(null);
+    // const post = posts.content ? posts.content.find(post => post.postId === parseInt(id)) : null;
     const userId = localStorage.getItem('userId');
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            if (posts.content) {
+                const foundPost = posts.content.find(post => post.postId === parseInt(id));
+                setPost(foundPost || null);
+            }
+            setLoading(false); // 로딩 완료 후 상태 업데이트
+        }, 200); // 500ms 딜레이
+
+        return () => clearTimeout(timer); // 컴포넌트 언마운트 시 타이머 정리
+    }, [posts, id]);
 
     // 댓글 상태 관리
     const [comments, setComments] = useState([
@@ -36,6 +52,10 @@ function PostDetail({ posts }) {
         }
     }, [post]);
 
+    if (loading) {
+        return <div className="text-center text-gray-500">로딩 중...</div>;
+    }
+
     if (!post) {
         return <div className="text-center text-red-500">게시글을 찾을 수 없습니다.</div>;
     }
@@ -60,9 +80,21 @@ function PostDetail({ posts }) {
     };
 
     // 삭제 버튼 클릭 핸들러
-    const handleDeleteClick = () => {
+    const handleDeleteClick = async () => {
         if (window.confirm('정말 이 글을 삭제하시겠습니까?')) {
-            // 서버에 삭제 요청을 보냄 (삭제 로직 추가 필요)
+            try {
+                const token = localStorage.getItem('token');
+                const response = await axios.delete(`/api/board/${post.postId}/delete`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                navigate('/my-board-app'); // 글 작성 후 게시글 목록 페이지로 이동
+                window.location.reload();
+            } catch(error) {
+                console.error('글 삭제 중 오류 발생:', error);
+                alert('글 삭제에 실패했습니다. 다시 시도해 주세요.');
+            }
             console.log('글 삭제!');
         }
     };
@@ -79,9 +111,9 @@ function PostDetail({ posts }) {
     }
 
     return (
-        <div className="max-w-full lg:max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg h-[calc(100vh-8rem)] overflow-y-auto">
+        <div className="max-w-full lg:max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg h-[calc(100vh-8rem)] overflow-y-auto dark:bg-gray-600">
             <div className="flex justify-between items-center mb-6">
-                <h1 className="text-lg lg:text-lg font-medium text-gray-800">{post.title}</h1>
+                <h1 className="text-lg lg:text-lg font-medium text-gray-800 dark:text-gray-200">{post.title}</h1>
                 <button
                     onClick={() => navigate(-1)}
                     className="text-sm text-blue-500 hover:underline"
@@ -90,7 +122,7 @@ function PostDetail({ posts }) {
                 </button>
             </div>
             <div className="border-t border-gray-300 py-4">
-                <div className="flex items-center justify-between text-sm text-gray-600">
+                <div className="flex items-center justify-between text-sm text-gray-600 dark:text-gray-200">
                     <div>
                         <span className="font-semibold">작성자: </span>{post.nickname}
                     </div>
@@ -102,7 +134,7 @@ function PostDetail({ posts }) {
                     </div>
                 </div>
             </div>
-            <div className="mt-8 text-gray-700 text-lg leading-relaxed whitespace-pre-wrap">
+            <div className="mt-8 text-gray-700 dark:text-gray-200 text-lg leading-relaxed whitespace-pre-wrap">
                 {post.content}
             </div>
 
@@ -112,9 +144,9 @@ function PostDetail({ posts }) {
                     onClick={handleLike}
                     disabled={!userId} // 로그인하지 않았으면 disabled
                     className={`w-24 h-16 flex flex-col justify-center items-center rounded-lg shadow-lg transition-transform duration-300 ease-in-out 
-            ${isLiked ? 'bg-red-500 hover:bg-red-600' : 'bg-blue-500 hover:bg-blue-600'} 
-            ${!userId ? 'cursor-not-allowed opacity-50' : 'text-white'} 
-            ${isLiked ? 'transform scale-110' : 'transform scale-100'}`} // 클릭 시 크기 변화
+                        ${isLiked ? 'bg-red-500 hover:bg-red-600' : 'bg-blue-500 hover:bg-blue-600'} 
+                        ${!userId ? 'cursor-not-allowed opacity-50' : 'text-white dark:text-gray-100'} 
+                        ${isLiked ? 'transform scale-110' : 'transform scale-100'}`} // 클릭 시 크기 변화
                     style={{ boxShadow: isLiked ? '0px 0px 15px rgba(255, 0, 0, 0.5)' : 'none' }} // 추천 시 그림자 효과
                 >
                     {isLiked ? (
@@ -168,7 +200,7 @@ function PostDetail({ posts }) {
             <CommentSection
                 comments={comments}
                 setComments={setComments}
-                postAuthor={post.nickName}
+                postAuthor={post.nickname}
             />
         </div>
     );

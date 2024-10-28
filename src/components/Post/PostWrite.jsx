@@ -11,18 +11,22 @@ const PostWrite = ({ isLoggedIn, editMode = false, existingPost = null }) => {
     const userId = localStorage.getItem('userId');
 
     useEffect(() => {
-        if (isLoggedIn === false) {
-            navigate('/my-board-app/login'); // 로그인되지 않은 경우 로그인 페이지로 이동
-        }
-
-        if (editMode && existingPost) {
-            if(existingPost.userId !== userId) {
-                alert('당신이 작성한게 아닙니다.');
-                navigate('/my-board-app/');
+        const timer = setTimeout(() => {
+            if (isLoggedIn === false) {
+                navigate('/my-board-app/login'); // 로그인되지 않은 경우 로그인 페이지로 이동
             }
-            setTitle(existingPost.title);
-            setContent(existingPost.content);
-        }
+    
+            if (editMode && existingPost) {
+                if(existingPost.userId !== userId) {
+                    alert('접속한 계정와 작성된 글의 계정이 일치하지 않습니다.');
+                    navigate('/my-board-app/');
+                }
+                setTitle(existingPost.title);
+                setContent(existingPost.content);
+            }
+        }, 500)
+        
+        return () => clearTimeout(timer);
     }, [isLoggedIn, navigate, editMode, existingPost]);
 
     const handleSubmit = async (e) => {
@@ -80,26 +84,26 @@ const PostWrite = ({ isLoggedIn, editMode = false, existingPost = null }) => {
     };
 
     return (
-        <div className="max-w-4xl mx-auto p-6 bg-gray-100 rounded-lg h-[calc(100vh-6rem)]">
-            <h2 className="text-2xl font-bold mb-6 text-center">{editMode ? '글 수정하기' : '새 글 작성'}</h2>
+        <div className="max-w-4xl mx-auto p-6 bg-gray-100 rounded-lg h-[calc(100vh-6rem)] dark:bg-gray-600">
+            <h2 className="text-2xl font-bold mb-6 text-center dark:text-white">{editMode ? '글 수정하기' : '새 글 작성'}</h2>
             <form onSubmit={handleSubmit}>
                 <div className="mb-4">
-                    <label htmlFor="title" className="block text-gray-700 font-semibold mb-2">제목</label>
+                    <label htmlFor="title" className="block text-gray-700 font-semibold mb-2 dark:text-gray-200">제목</label>
                     <input
                         type="text"
                         id="title"
-                        className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-400 dark:text-gray-100 dark:placeholder-gray-300"
                         placeholder='제목을 50자 이내로 작성해주세요.'
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                     />
                 </div>
                 <div className="mb-6">
-                    <label htmlFor="content" className="block text-gray-700 font-semibold mb-2">내용</label>
+                    <label htmlFor="content" className="block text-gray-700 font-semibold mb-2 dark:text-gray-200">내용</label>
                     <textarea
                         id="content"
                         rows="20"
-                        className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                        className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none dark:bg-gray-400 dark:text-gray-100 dark:placeholder-gray-300"
                         placeholder='글 내용을 작성해주세요.'
                         value={content}
                         onChange={(e) => setContent(e.target.value)}

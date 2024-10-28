@@ -5,7 +5,7 @@ import MobilePostList from "./components/Post/MobilePostList";
 import SidebarMenu from "./components/Sidebar/SidebarMenu";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import LoginPage from './components/Utils/Login';
 import TermsOfUse from "./components/Utils/TermsOfUse";
 import SignUp from "./components/Utils/SignUp";
@@ -33,8 +33,13 @@ function App() {
     const [agreeTerms, setAgreedTems] = useState(false);
     const [posts, setPosts] = useState([]);  // 게시글 목록을 위한 상태
 
+    const postsPerPage = 10;
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(0);
+
     // 로그인 상태 확인
     useEffect(() => {
+        
         const token = localStorage.getItem('token');
         if (token) {
             setIsLoggedIn(true);
@@ -47,14 +52,20 @@ function App() {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await axios.get('/api/board/list');  // 백엔드 API 호출
+                const response = await axios.get('/api/board/list', {
+                    params: {
+                        page: currentPage -1,
+                        perSize: postsPerPage
+                    }
+                });  // 백엔드 API 호출
                 setPosts(response.data);  // 게시글 목록을 상태에 저장
+                setTotalPages(response.data.totalPages);
             } catch (error) {
                 console.error('게시글 목록을 가져오는 중 오류 발생:', error);
             }
         };
         fetchPosts();
-    }, []);
+    }, [currentPage]);
 
     const onClose = () => {
         setIsOpen(false);
@@ -94,16 +105,17 @@ function App() {
                 </div>
                 <div className="flex-grow p-4 bg-gray-100 dark:bg-gray-700 overflow-auto lg:w-1/2 2xl:w-3/4 mx-auto">
                     <Routes>
+                        <Route path="/" element={<Navigate to="/my-board-app" replace />} />
                         <Route path="/my-board-app"
                             element={
                                 <>
                                     {/* 데스크톱과 모바일 렌더링 구분 */}
                                     < div className="lg:block hidden">
-                                        <PostList posts={posts} />
+                                        <PostList posts={posts} currentPage={currentPage} totalPages={totalPages} setCurrentPage={setCurrentPage} />
                                     </div>
-                                    <div className="lg:hidden">
-                                        <MobilePostList posts={posts} />
-                                    </div>
+                                    {/* <div className="lg:hidden">
+                                        <MobilePostList posts={posts} currentPage={currentPage} totalPages={totalPages} setCurrentPage={setCurrentPage} />
+                                    </div> */}
                                 </>
                             } />
                         <Route path="/my-board-app/login" element={<LoginPage isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />

@@ -4,17 +4,16 @@ import '../../assert/css/Scroll.css';
 import Pagination from '../Utils/Pagination.jsx';
 import { MdThumbUp } from 'react-icons/md';
 
-function PostList({ posts }) {
+function PostList({ posts, currentPage, totalPages, setCurrentPage }) {
 
-    const [currentPage, setCurrentPage] = useState(1);
-    const postsPerPage = 10;
     const navigate = useNavigate();
 
-    const indexOfLastPost = currentPage * postsPerPage;
-    const indexOfFirstPost = indexOfLastPost - postsPerPage;
-    const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+    const indexOfLastPost = currentPage * totalPages;
+    const indexOfFirstPost = indexOfLastPost - totalPages;
+    const currentPosts = posts.content || [];
 
     const handlePageChange = (pageNumber) => {
+        console.log(pageNumber)
         setCurrentPage(pageNumber);
     };
 
@@ -69,8 +68,8 @@ function PostList({ posts }) {
             </div>
 
             <Pagination
-                totalPosts={posts.length}
-                postsPerPage={postsPerPage}
+                totalPosts={posts.totalElements}
+                postsPerPage={posts.size}
                 currentPage={currentPage}
                 onPageChange={handlePageChange}
             />
