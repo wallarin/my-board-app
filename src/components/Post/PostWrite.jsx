@@ -17,7 +17,7 @@ const PostWrite = ({ isLoggedIn, editMode = false, existingPost = null }) => {
             }
     
             if (editMode && existingPost) {
-                if(existingPost.userId !== userId) {
+                if(existingPost.isUserPostOwner === 'N') {
                     alert('접속한 계정와 작성된 글의 계정이 일치하지 않습니다.');
                     navigate('/my-board-app/');
                 }
@@ -44,7 +44,6 @@ const PostWrite = ({ isLoggedIn, editMode = false, existingPost = null }) => {
 
         try {
 
-            const userId = sessionStorage.getItem('userId');
             const token = sessionStorage.getItem('token');
 
             // 서버로 보낼 글 데이터

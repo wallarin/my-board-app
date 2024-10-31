@@ -1,20 +1,50 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import axios from 'axios';
 import '../../assert/css/Scroll.css';
 import Pagination from '../Utils/Pagination.jsx';
 import { MdThumbUp, MdSearch } from 'react-icons/md';
 
-function PostList({ posts, currentPage, totalPages, setCurrentPage }) {
+function PostList() {
 
     const navigate = useNavigate();
 
-    const indexOfLastPost = currentPage * totalPages;
-    const indexOfFirstPost = indexOfLastPost - totalPages;
-    const currentPosts = posts.content || [];
+    // const indexOfLastPost = currentPage * totalPages;
+    // const indexOfFirstPost = indexOfLastPost - totalPages;
+    // const currentPosts = posts.content || [];
+
+    const [posts, setPosts] = useState([]);
+    const [totalElements, setTotalElements] = useState(0);
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    const currentPage = parseInt(searchParams.get('page') || '1', 10);
+    const postsPerPage = 10;
+
+    useEffect(() => {
+        const fetchPosts = async () => {
+            try {
+                const sessionUserId = sessionStorage.getItem('userId') || 'unknown';
+                const response = await axios.get('/api/board/list', {
+                    params: {
+                        page: currentPage - 1,
+                        perSize: postsPerPage,
+                        userId: sessionUserId
+                    }
+                });
+                setPosts(response.data.content || []);
+                setTotalElements(response.data.totalElements);
+                
+            } catch (error) {
+                console.error('게시글 목록을 가져오는 중 오류 발생:', error);
+            }
+        };
+        fetchPosts();
+
+    }, [currentPage]);
+    
 
     const handlePageChange = (pageNumber) => {
-        console.log(pageNumber)
-        setCurrentPage(pageNumber);
+        setSearchParams({ page: pageNumber });
     };
 
     const offset = new Date().getTimezoneOffset() * 60000;
@@ -51,7 +81,7 @@ function PostList({ posts, currentPage, totalPages, setCurrentPage }) {
 
             {/* 게시글 목록 */}
             <div className="space-y-2 dark:bg-gray-700">
-                {currentPosts.map(post => (
+                {posts.map(post => (
                     <Link 
                         to={`/my-board-app/post/${post.postId}`} 
                         key={post.postId} 
@@ -70,8 +100,8 @@ function PostList({ posts, currentPage, totalPages, setCurrentPage }) {
             </div>
 
             <Pagination
-                totalPosts={posts.totalElements}
-                postsPerPage={posts.size}
+                totalPosts={totalElements}
+                postsPerPage={postsPerPage}
                 currentPage={currentPage}
                 onPageChange={handlePageChange}
             />
@@ -85,7 +115,7 @@ function PostList({ posts, currentPage, totalPages, setCurrentPage }) {
                 </select>
                 <input type='text' className='px-2 mx-8 rounded dark:bg-gray-300 dark:text-gray-800'/>
                 <button className='text-white bg-blue-600 dark:bg-blue-400 px-3 rounded'>
-                    <MdSearch className="w-8 h-8" />
+                    <MdSearch className="w-5 h-5" />
                 </button>
             </div>
 

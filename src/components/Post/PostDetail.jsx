@@ -6,7 +6,7 @@ import PostWrite from './PostWrite';
 import './LikeButton.css';
 import axios from 'axios';
 
-function PostDetail({ posts }) {
+function PostDetail() {
     const { id } = useParams();
     const navigate = useNavigate();
 
@@ -15,19 +15,26 @@ function PostDetail({ posts }) {
     const [post, setPost] = useState(null);
     // const post = posts.content ? posts.content.find(post => post.postId === parseInt(id)) : null;
     //const userId = localStorage.getItem('userId');
-    const userId = sessionStorage.getItem('userId');
+    const userId = sessionStorage.getItem('userId') || 'unknown';
 
     useEffect(() => {
-        const timer = setTimeout(() => {
-            if (posts.content) {
-                const foundPost = posts.content.find(post => post.postId === parseInt(id));
-                setPost(foundPost || null);
+        const fetchPost = async () => {
+            try {
+                const response = await axios.get(`/api/board/view/${id}`, {
+                    params: { 
+                        loginId: userId 
+                    }
+                })
+                setPost(response.data);
+                setLoading(false);
+            } catch (error) {
+                console.error('게시글 불러오기 오류:', error);
+                setLoading(false); // 로딩 완료
             }
-            setLoading(false); // 로딩 완료 후 상태 업데이트
-        }, 200); // 500ms 딜레이
+        }
 
-        return () => clearTimeout(timer); // 컴포넌트 언마운트 시 타이머 정리
-    }, [posts, id]);
+        fetchPost();
+    }, [id, userId])
 
     // 댓글 상태 관리
     const [comments, setComments] = useState([
@@ -47,6 +54,7 @@ function PostDetail({ posts }) {
         if (post) {
             const timer = setTimeout(() => {
                 setLikeCount(post.likeCount); // post에서 추천 수를 설정
+                setIsLiked(post.isUserLiked === "Y");
             }, 100); // 0.5초 대기
 
             return () => clearTimeout(timer); // 컴포넌트 언마운트 시 타이머 정리
@@ -64,15 +72,36 @@ function PostDetail({ posts }) {
 
 
     // 추천 버튼 클릭 핸들러
-    const handleLike = () => {
-        if (isLiked) {
-            // 추천 취소
-            setLikeCount(likeCount - 1);
-        } else {
-            // 추천
-            setLikeCount(likeCount + 1);
+    const handleLike = async () => {
+        try {
+            const response = await axios.post(
+                `/api/board/${post.postId}/like`, 
+                {}, 
+                {
+                    params: { userId: userId }, // 사용자 ID를 요청에 포함
+                    headers: {
+                        'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+                    }
+                }
+            );
+
+            if (response.data === "추천되었습니다.") {
+                setLikeCount(likeCount + 1);
+                setIsLiked(true);
+            } else if (response.data === "추천이 취소되었습니다.") {
+                setLikeCount(likeCount - 1);
+                setIsLiked(false);
+            } else {
+                alert(response.data); // "본인 글에는 추천할 수 없습니다." 등의 메시지 처리
+            }
+        } catch (error) {
+            console.error("추천 처리 중 오류 발생:", error);
+            if (error.response && error.response.status === 403) {
+                alert("로그인이 필요합니다.");
+            } else {
+                alert("추천 처리에 실패했습니다. 다시 시도해 주세요.");
+            }
         }
-        setIsLiked(!isLiked); // 추천 상태 반전
     };
 
     // 수정 버튼 클릭 핸들러
@@ -179,7 +208,7 @@ function PostDetail({ posts }) {
                 <div className="flex items-center ml-auto">
 
                 </div>
-                {post.userId === userId && (
+                {post.isUserPostOwner === 'Y' && (
                     <div>
                         <button
                             onClick={handleEditClick}
@@ -199,8 +228,7 @@ function PostDetail({ posts }) {
 
             {/* 댓글 섹션 */}
             <CommentSection
-                comments={comments}
-                setComments={setComments}
+                postId={id}
                 postAuthor={post.nickname}
             />
         </div>

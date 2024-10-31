@@ -31,11 +31,8 @@ function App() {
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [agreeTerms, setAgreedTems] = useState(false);
-    const [posts, setPosts] = useState([]);  // 게시글 목록을 위한 상태
-
-    const postsPerPage = 10;
-    const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(0);
+    
+    
 
     // 로그인 상태 확인
     useEffect(() => {
@@ -48,24 +45,30 @@ function App() {
         }
     }, []);
 
-    // DB에서 게시글 목록을 가져오는 함수
-    useEffect(() => {
-        const fetchPosts = async () => {
-            try {
-                const response = await axios.get('/api/board/list', {
-                    params: {
-                        page: currentPage -1,
-                        perSize: postsPerPage
-                    }
-                });  // 백엔드 API 호출
-                setPosts(response.data);  // 게시글 목록을 상태에 저장
-                setTotalPages(response.data.totalPages);
-            } catch (error) {
-                console.error('게시글 목록을 가져오는 중 오류 발생:', error);
-            }
-        };
-        fetchPosts();
-    }, [currentPage]);
+    // const [posts, setPosts] = useState([]);  // 게시글 목록을 위한 상태
+    // const postsPerPage = 10;
+    // const [currentPage, setCurrentPage] = useState(1);
+    // const [totalPages, setTotalPages] = useState(0);
+    // // DB에서 게시글 목록을 가져오는 함수
+    // useEffect(() => {
+    //     const fetchPosts = async () => {
+    //         try {
+    //             const sessionUserId = sessionStorage.getItem('userId') || 'unknown';
+    //             const response = await axios.get('/api/board/list', {
+    //                 params: {
+    //                     page: currentPage -1,
+    //                     perSize: postsPerPage,
+    //                     userId: sessionUserId
+    //                 }
+    //             });  // 백엔드 API 호출
+    //             setPosts(response.data);  // 게시글 목록을 상태에 저장
+    //             setTotalPages(response.data.totalPages);
+    //         } catch (error) {
+    //             console.error('게시글 목록을 가져오는 중 오류 발생:', error);
+    //         }
+    //     };
+    //     fetchPosts();
+    // }, [currentPage]);
 
     const onClose = () => {
         setIsOpen(false);
@@ -112,7 +115,7 @@ function App() {
                                 <>
                                     {/* 데스크톱과 모바일 렌더링 구분 */}
                                     < div className="lg:block hidden">
-                                        <PostList posts={posts} currentPage={currentPage} totalPages={totalPages} setCurrentPage={setCurrentPage} />
+                                        <PostList />
                                     </div>
                                     {/* <div className="lg:hidden">
                                         <MobilePostList posts={posts} currentPage={currentPage} totalPages={totalPages} setCurrentPage={setCurrentPage} />
@@ -128,7 +131,7 @@ function App() {
                         {/* 상세보기 페이지 */}
                         <Route path="/my-board-app/postwrite" element={<PostWrite isLoggedIn={isLoggedIn}/>} />
                         <Route path="/my-board-app/post/:id/edit" element={<PostWrite isLoggedIn={isLoggedIn} editMode={true} />} />
-                        <Route path="/my-board-app/post/:id" element={<PostDetail posts={posts} />} />
+                        <Route path="/my-board-app/post/:id" element={<PostDetail />} />
                     </Routes>
                 </div>
             </div>
