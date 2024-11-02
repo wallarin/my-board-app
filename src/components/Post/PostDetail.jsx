@@ -73,6 +73,7 @@ function PostDetail() {
 
     // 추천 버튼 클릭 핸들러
     const handleLike = async () => {
+        if ( userId === 'unknown') { alert('로그인이 필요합니다.'); return;}
         try {
             const response = await axios.post(
                 `/api/board/${post.postId}/like`, 
@@ -172,10 +173,9 @@ function PostDetail() {
             <div className="my-6 flex justify-center">
                 <button
                     onClick={handleLike}
-                    disabled={!userId} // 로그인하지 않았으면 disabled
-                    className={`w-24 h-16 flex flex-col justify-center items-center rounded-lg shadow-lg transition-transform duration-300 ease-in-out 
+                    className={`w-24 h-16 flex flex-col justify-center items-center rounded-lg shadow-lg transition-transform duration-300 ease-in-out
                         ${isLiked ? 'bg-red-500 hover:bg-red-600' : 'bg-blue-500 hover:bg-blue-600'} 
-                        ${!userId ? 'cursor-not-allowed opacity-50' : 'text-white dark:text-gray-100'} 
+                        ${userId === "unknown" ? 'cursor-not-allowed opacity-50' : 'text-white dark:text-gray-100'} 
                         ${isLiked ? 'transform scale-110' : 'transform scale-100'}`} // 클릭 시 크기 변화
                     style={{ boxShadow: isLiked ? '0px 0px 15px rgba(255, 0, 0, 0.5)' : 'none' }} // 추천 시 그림자 효과
                 >

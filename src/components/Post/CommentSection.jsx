@@ -33,6 +33,7 @@ function CommentSection({ postId, postAuthor }) {
 
     // 댓글 추가 함수
     const handleAddComment = async () => {
+        if ( userId === 'unknown') { alert('로그인이 필요합니다.'); return}
         if (newComment.trim() === "") { alert('댓글을 입력하세요.'); return };
         try {
             const response = await axios.post(`/api/comments/post/${postId}`, {
@@ -47,6 +48,9 @@ function CommentSection({ postId, postAuthor }) {
             setComments([...comments, response.data]);
             setNewComment("");
         } catch (error) {
+            if (error.response.status === 403) {
+                alert("로그인이 필요합니다.");
+            }
             console.error("댓글 추가 중 오류 발생:", error);
         }
     };
@@ -154,7 +158,7 @@ function CommentSection({ postId, postAuthor }) {
                 if (error.response.status === 400) {
                     alert(error.response.data.message || "이미 추천한 댓글입니다.");
                 } else if (error.response.status === 403) {
-                    alert("권한이 없습니다. 로그인 상태를 확인해주세요.");
+                    alert("로그인이 필요합니다.");
                 }
             } else {
                 console.error("댓글 추천 중 오류 발생:", error);
@@ -206,6 +210,8 @@ function CommentSection({ postId, postAuthor }) {
         } catch (error) {
             if (error.response && error.response.status === 400) {
                 alert(error.response.data.message); // 서버에서 전달한 오류 메시지 표시
+            } else if (error.response.status === 403) {
+                alert("로그인이 필요합니다.");
             } else {
                 console.error("댓글 비추천 중 오류 발생:", error);
             }
@@ -306,12 +312,14 @@ function CommentSection({ postId, postAuthor }) {
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
                     className="w-full p-4 pr-28 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none dark:bg-gray-400 dark:text-gray-100 dark:placeholder-gray-300"
-                    placeholder="댓글을 입력하세요..."
+                    placeholder={ userId === 'unknown' ? '댓글 입력은 로그인이 필요합니다.' : "댓글을 입력하세요..."}
+                    disabled={userId === 'unknown' ? true : false}
                     rows="4"
                 />
                 <button
+                    disabled={userId === 'unknown' ? true : false}
                     onClick={handleAddComment}
-                    className="absolute bottom-3 right-1 h-[90%] mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600 transition"
+                    className={`absolute bottom-3 right-1 h-[90%] mt-4 text-white px-4 py-2 rounded-lg shadow transition ${userId === 'unknown' ? 'bg-gray-500 hover:bg-gray-600 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600 cursor-pointer'}`}
                 >
                     댓글 추가<br />
                     <span className="text-gray-300 text-[0.5rem]">( Alt + S )</span>

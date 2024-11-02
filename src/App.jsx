@@ -12,8 +12,10 @@ import SignUp from "./components/Utils/SignUp";
 import Faq from "./components/Utils/FaqList";
 import Inquiry from "./components/Utils/Inquiry";
 import Test from "./components/Test";
+import NotFound from "./components/Utils/NotFound";
 
 import PostWrite from "./components/Post/PostWrite";
+import MyPage from "./components/Utils/MyPage";
 
 function App() {
 
@@ -132,6 +134,9 @@ function App() {
                         <Route path="/my-board-app/postwrite" element={<PostWrite isLoggedIn={isLoggedIn}/>} />
                         <Route path="/my-board-app/post/:id/edit" element={<PostWrite isLoggedIn={isLoggedIn} editMode={true} />} />
                         <Route path="/my-board-app/post/:id" element={<PostDetail />} />
+
+                        <Route path="/my-board-app/mypage" element={<MyPage />} />
+                        <Route path="/*" element={<NotFound />} />
                     </Routes>
                 </div>
             </div>
