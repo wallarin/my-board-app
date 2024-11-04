@@ -98,7 +98,7 @@ const SidebarMenu = ({ isOpen, onClose, isSearchOpen, isLoggedIn, setIsLoggedIn 
                             {isCustomerCenterOpen && (
                                 <ul className="pl-4">
                                     <li className="my-2"><Link onClick={onClose} to="/my-board-app/faq" href="#" className="break-words block">FAQ</Link></li>
-                                    <li className="my-2"><Link onClick={onClose} to="/my-board-app/inquiry" className="break-words block">1:1 문의</Link></li>
+                                    <li className="my-2"><Link onClick={onClose} to="/my-board-app/inquiryList" className="break-words block">1:1 문의</Link></li>
                                 </ul>
                             )}
                         </div>

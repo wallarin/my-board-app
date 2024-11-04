@@ -10,12 +10,13 @@ import LoginPage from './components/Utils/Login';
 import TermsOfUse from "./components/Utils/TermsOfUse";
 import SignUp from "./components/Utils/SignUp";
 import Faq from "./components/Utils/FaqList";
-import Inquiry from "./components/Utils/Inquiry";
 import Test from "./components/Test";
 import NotFound from "./components/Utils/NotFound";
 
 import PostWrite from "./components/Post/PostWrite";
 import MyPage from "./components/Utils/MyPage";
+import InquiryWrite from "./components/Utils/InquiryWrite";
+import InquiryList from "./components/Utils/InquiryList";
 
 function App() {
 
@@ -128,7 +129,8 @@ function App() {
                         <Route path="/my-board-app/termsOfUse" element={<TermsOfUse setAgreedTems={setAgreedTems}/>} />
                         <Route path="/my-board-app/signUp" element={<SignUp agreeTerms={agreeTerms} setAgreedTems={setAgreedTems} isLoggedIn={isLoggedIn} />} />
                         <Route path="/my-board-app/faq" element={<Faq />} />
-                        <Route path="/my-board-app/inquiry" element={<Inquiry />} />
+                        <Route path="/my-board-app/inquiryList" element={<InquiryList />} />
+                        <Route path="/my-board-app/inquiryWrite" element={<InquiryWrite />} />
                         <Route path="/my-board-app/test" element={<Test />} />
                         {/* 상세보기 페이지 */}
                         <Route path="/my-board-app/postwrite" element={<PostWrite isLoggedIn={isLoggedIn}/>} />

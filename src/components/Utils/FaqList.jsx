@@ -1,24 +1,25 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MdExpandMore, MdExpandLess, MdQuestionAnswer, MdChatBubble } from 'react-icons/md';
 import Pagination from './Pagination'; // 페이징 컴포넌트를 별도로 분리했다고 가정
+import faqs from './data/faqs';
 
-const faqs = {
-    login: Array.from({ length: 20 }, (_, index) => ({
-        id: index + 1,
-        question: `로그인 ${index + 1}번째 질문입니다.`,
-        answer: `로그인 ${index + 1}번째 질문에 대한 답변입니다.`,
-    })),
-    terms: Array.from({ length: 20 }, (_, index) => ({
-        id: index + 1,
-        question: `약관 ${index + 1}번째 질문입니다.`,
-        answer: `약관 ${index + 1}번째 질문에 대한 답변입니다.`,
-    })),
-    guide: Array.from({ length: 20 }, (_, index) => ({
-        id: index + 1,
-        question: `이용안내 ${index + 1}번째 질문입니다.`,
-        answer: `이용안내 ${index + 1}번째 질문에 대한 답변입니다.`,
-    })),
-};
+// const faqs = {
+//     login: Array.from({ length: 20 }, (_, index) => ({
+//         id: index + 1,
+//         question: `로그인 ${index + 1}번째 질문입니다.`,
+//         answer: `로그인 ${index + 1}번째 질문에 대한 답변입니다.`,
+//     })),
+//     terms: Array.from({ length: 20 }, (_, index) => ({
+//         id: index + 1,
+//         question: `약관 ${index + 1}번째 질문입니다.`,
+//         answer: `약관 ${index + 1}번째 질문에 대한 답변입니다.`,
+//     })),
+//     guide: Array.from({ length: 20 }, (_, index) => ({
+//         id: index + 1,
+//         question: `이용안내 ${index + 1}번째 질문입니다.`,
+//         answer: `이용안내 ${index + 1}번째 질문에 대한 답변입니다.`,
+//     })),
+// };
 
 const allFaqs = [...faqs.login, ...faqs.terms, ...faqs.guide];
 
@@ -39,7 +40,7 @@ function FaqItem({ faq, isOpen, onClick }) {
                 onClick={onClick}
             >
                 <div className="flex items-center">
-                    <MdQuestionAnswer className="mr-2 text-gray-700" />
+                    <MdQuestionAnswer className="mr-2 text-blue-400 dark:text-blue-200" />
                     {faq.question}
                 </div>
                 {isOpen ? <MdExpandLess className="text-gray-700" /> : <MdExpandMore className="text-gray-700" />}
@@ -53,7 +54,7 @@ function FaqItem({ faq, isOpen, onClick }) {
                         <div className="mr-2 mt-1 text-yellow-400">
                             <MdChatBubble />
                         </div>
-                        <div className="bg-yellow-200 dark:bg-yellow-500 p-4 rounded-lg max-w-xs lg:max-w-lg text-right leading-relaxed">
+                        <div className="bg-yellow-200 dark:bg-yellow-500 p-4 rounded-lg max-w-xs lg:max-w-lg text-left leading-relaxed">
                             {faq.answer}
                         </div>
                     </div>
