@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import FindCredentialsModal from './FindCredentials';
 
 const Login = ({ isLoggedIn, setIsLoggedIn }) => {
     const [userId, setUserId] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
+    const [showModal, setShowModal] = useState(false);
 
     // 로그인 상태를 확인하고, 이미 로그인한 경우 리다이렉트
     useEffect(() => {
@@ -82,7 +84,13 @@ const Login = ({ isLoggedIn, setIsLoggedIn }) => {
                     </button>
                     <div className='flex sm:flex-row flex-col justify-between mt-3 text-sm'>
                         <span className='text-gray-400 dark:text-gray-200'>아이디 / 패스워드를 잊었다면?</span>
-                        <span className='text-gray-500 dark:text-gray-300 underline ml-auto'>아이디 / 패스워드 찾기</span>
+                        <button
+                            type='button'
+                            className='text-gray-500 dark:text-gray-300 underline ml-auto'
+                            onClick={() => setShowModal(true)}
+                        >
+                            아이디 / 패스워드 찾기
+                        </button>
                     </div>
                     <div className="flex flex-col sm:flex-row justify-between mt-3 text-sm">
                         <span className="text-gray-400 dark:text-gray-200">아직 회원이 아니라면?</span>
@@ -90,6 +98,8 @@ const Login = ({ isLoggedIn, setIsLoggedIn }) => {
                     </div>
                 </form>
             </div>
+
+            {showModal && <FindCredentialsModal onClose={() => setShowModal(false)} />}
         </div>
     );
 };
