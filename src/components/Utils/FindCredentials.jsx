@@ -3,8 +3,8 @@ import axios from 'axios';
 
 function FindCredentials({ onClose }) {
     const [phonePart1, setPhonePart1] = useState('010');
-    const [phonePart2, setPhonePart2] = useState('7436');
-    const [phonePart3, setPhonePart3] = useState('3900');
+    const [phonePart2, setPhonePart2] = useState('');
+    const [phonePart3, setPhonePart3] = useState('');
     const [verificationCode, setVerificationCode] = useState('');
     const [authSuccess, setAuthSuccess] = useState(false);
     const [isCodeSent, setIsCodeSent] = useState(false);
